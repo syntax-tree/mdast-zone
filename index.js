@@ -152,9 +152,10 @@ function testFactory(settings, callback) {
      * Test if `node` matches the bound settings.
      *
      * @param {Node} node
+     * @param {Parser|Compiler} [context]
      * @return {Object?}
      */
-    function test(node) {
+    function test(node, context) {
         var value = node.value;
         var match;
         var result;
@@ -181,7 +182,7 @@ function testFactory(settings, callback) {
         };
 
         if (callback) {
-            callback(result);
+            callback(result, context);
         }
 
         return result;
@@ -198,9 +199,9 @@ function testFactory(settings, callback) {
  */
 function parse(tokenize, settings) {
     var callback = settings.onparse;
-    var test = testFactory(settings, function (result) {
+    var test = testFactory(settings, function (result, context) {
         if (result.type === 'marker') {
-            callback(result);
+            callback(result, context);
         }
     });
 
@@ -212,7 +213,7 @@ function parse(tokenize, settings) {
     return function () {
         var node = tokenize.apply(this, arguments);
 
-        test(node);
+        test(node, this);
 
         return node;
     };
@@ -226,9 +227,9 @@ function parse(tokenize, settings) {
  */
 function stringify(compile, settings) {
     var callback = settings.onstringify;
-    var test = testFactory(settings, function (result) {
+    var test = testFactory(settings, function (result, context) {
         if (result.type === 'marker') {
-            callback(result);
+            callback(result, context);
         }
     });
 
@@ -239,7 +240,7 @@ function stringify(compile, settings) {
      * @return {string}
      */
     return function (node) {
-        test(node);
+        test(node, this);
 
         return compile.apply(this, arguments);
     };
