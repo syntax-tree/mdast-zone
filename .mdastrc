@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "github",
+    "toc",
+    "usage",
+    "yaml-config"
+  ],
+  "settings": {
+    "bullet": "*"
+  }
+}

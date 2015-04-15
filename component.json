@@ -1,0 +1,19 @@
+{
+  "name": "mdast-zone",
+  "version": "0.0.0",
+  "description": "HTML comments as ranges or markers in mdast",
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "comment",
+    "comments",
+    "zone",
+    "range",
+    "marker",
+    "mdast"
+  ],
+  "repository": "wooorm/mdast-zone",
+  "scripts": [
+    "index.js"
+  ]
+}

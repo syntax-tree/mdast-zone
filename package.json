@@ -1,0 +1,55 @@
+{
+  "name": "mdast-zone",
+  "version": "0.0.0",
+  "description": "HTML comments as ranges or markers in mdast",
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "comment",
+    "comments",
+    "zone",
+    "range",
+    "marker",
+    "mdast"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/mdast-zone.git"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com>",
+  "peerDependencies": {
+    "mdast": ">=0.18.0"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.0",
+    "eslint": "^0.18.0",
+    "esmangle": "^1.0.0",
+    "istanbul": "^0.3.0",
+    "jscs": "^1.0.0",
+    "jscs-jsdoc": "^0.4.0",
+    "mdast": "^0.18.0",
+    "mdast-github": "^0.2.0",
+    "mdast-toc": "^0.3.0",
+    "mdast-usage": "^0.2.0",
+    "mdast-yaml-config": "^0.1.0",
+    "mocha": "^2.0.0"
+  },
+  "scripts": {
+    "test-api": "mocha --check-leaks test/index.js",
+    "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test/index.js",
+    "test-coverage": "istanbul cover _mocha -- test/index.js",
+    "test-travis": "npm run test-coveralls",
+    "test": "npm run test-api",
+    "lint-api": "eslint index.js",
+    "lint-test": "eslint --env mocha test",
+    "lint-script": "eslint --rule strict:false example.js",
+    "lint-style": "jscs --reporter inline index.js test/index.js",
+    "lint": "npm run lint-api && npm run lint-test && npm run lint-script && npm run lint-style",
+    "make": "npm run lint && npm run test-coverage",
+    "bundle": "browserify --no-builtins -u esprima index.js -s mdastZone > mdast-zone.js",
+    "postbundle": "esmangle mdast-zone.js > mdast-zone.min.js",
+    "build-md": "mdast . -oq",
+    "build": "npm run build-md && npm run bundle",
+    "prepublish": "npm run build"
+  }
+}
