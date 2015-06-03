@@ -7,19 +7,19 @@ HTML comments as ranges or markers in [**mdast**](https://github.com/wooorm/mdas
 [npm](https://docs.npmjs.com/cli/install)
 
 ```bash
-$ npm install mdast-zone
+npm install mdast-zone
 ```
 
 [Component.js](https://github.com/componentjs/component)
 
 ```bash
-$ component install wooorm/mdast-zone
+component install wooorm/mdast-zone
 ```
 
 [Bower](http://bower.io/#install-packages)
 
 ```bash
-$ bower install mdast-zone
+bower install mdast-zone
 ```
 
 [Duo](http://duojs.org/#getting-started)
@@ -41,11 +41,15 @@ UMD: globals, AMD, and CommonJS ([uncompressed](mdast-zone.js) and [compressed](
 ## Table of Contents
 
 *   [Usage](#usage)
+
 *   [API](#api)
+
     *   [zone(options)](#zoneoptions)
+
         *   [Marker](#marker)
         *   [function onparse(marker) and function onstringify(marker)](#function-onparsemarker-and-function-onstringifymarker)
         *   [function onrun(start, nodes, end, scope)](#function-onrunstart-nodes-end-scope)
+
 *   [License](#license)
 
 ## Usage
@@ -108,18 +112,34 @@ Note that **mdast-zone** is not a plugin by itself. It should be used by one.
 
 The goal of **zone** is two fold:
 
-1.  Configuration during **mdast**s parse and/or stringification stage, using **markers**;
-2.  Transforming parts of a document without affecting other parts, which is not visible when rendering to HTML, using **ranges** (a starting marker, followed by nodes, and an ending marker).
+1.  Configuration during **mdast**s parse and/or stringification stage,
+    using **markers**;
 
-The first is exposed by this plugin in the form of an HTML comment which sort-of looks like a self-closing, custom tag. The second by placing starting and ending tags, as siblings, in a parent.
+2.  Transforming parts of a document without affecting other parts, which
+    is not visible when rendering to HTML, using **ranges** (a starting
+    marker, followed by nodes, and an ending marker).
+
+The first is exposed by this plugin in the form of an HTML comment which
+sort-of looks like a self-closing, custom tag. The second by placing starting
+and ending tags, as siblings, in a parent.
 
 **Parameters**
 
 *   `options` (`Object`):
+
     *   `name` (`string`) — Type to look for;
-    *   [`onparse`](#function-onparsemarker-and-function-onstringifymarker) (`function (marker)`, optional) — Callback invoked when a marker is found during parsing;
-    *   [`onstringify`](#function-onparsemarker-and-function-onstringifymarker) (`function (marker)`, optional) — Callback invoked when a marker is found during stringification;
-    *   [`onrun`](#function-onrunstart-nodes-end-scope) (`Array.<Node>? = function (start, nodes, end)`, optional) — Callback invoked when a range is found during transformation.
+
+    *   [`onparse`](#function-onparsemarker-and-function-onstringifymarker)
+        (`function (marker)`, optional)
+        — Callback invoked when a marker is found during parsing;
+
+    *   [`onstringify`](#function-onparsemarker-and-function-onstringifymarker)
+        (`function (marker)`, optional)
+        — Callback invoked when a marker is found during stringification;
+
+    *   [`onrun`](#function-onrunstart-nodes-end-scope)
+        (`Array.<Node>? = function (start, nodes, end)`, optional)
+        — Callback invoked when a range is found during transformation.
 
 **Returns**
 
@@ -163,24 +183,34 @@ Yields:
 
 *   `marker` ([`Marker`](#marker)) — Marker.
 
-When passing `name: "foo"` and `onparse: console.log.bind(console)` to `zone()`, comments in the form of `<!--foo bar="baz" qux-->` are detected and `onparse` is invoked:
-An `onstringify` method could (instead, or both) be passed to `zone()`, which would be invoked with the same `marker` but during the stringification phase.
+When passing `name: "foo"` and `onparse: console.log.bind(console)` to
+`zone()`, comments in the form of `<!--foo bar="baz" qux-->` are detected and
+`onparse` is invoked:
+
+An `onstringify` method could (instead, or both) be passed to `zone()`,
+which would be invoked with the same `marker` but during the stringification
+phase.
 
 #### function onrun(start, nodes, end, scope)
 
 **Parameters**
 
 *   `start` ([`Marker`](#marker)) — Start of range;
+
 *   `nodes` (`Array.<Node>`) — Nodes between `start` and `end`;
+
 *   `end` ([`Marker`](#marker)) — End of range.
+
 *   `scope` (`Object`):
+
     *   `parent` (`Node`) — Parent of the range;
     *   `start` (`number`) — Index of `start` in `parent`;
     *   `end` (`number`) — Index of `end` in `parent`.
 
 **Returns**
 
-`Array.<Node>?` — Zero or more nodes to replace the range (including `start` and `end`s HTML comments) with.
+`Array.<Node>?` — Zero or more nodes to replace the range (including `start`
+and `end`s HTML comments) with.
 
 ## License
 
