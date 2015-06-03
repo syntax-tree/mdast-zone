@@ -28,7 +28,7 @@
     "jscs": "^1.0.0",
     "jscs-jsdoc": "^0.4.0",
     "mdast": "^0.18.0",
-    "mdast-github": "^0.2.0",
+    "mdast-github": "^0.3.0",
     "mdast-toc": "^0.4.1",
     "mdast-usage": "^0.2.0",
     "mdast-yaml-config": "^0.1.0",
