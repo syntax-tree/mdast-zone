@@ -18,7 +18,7 @@ var tests = fs
 
         return {
             'name': filepath,
-            'input': read(join(__dirname, filepath, 'Input.md'), 'utf-8'),
+            'input': read(join(__dirname, filepath, 'input.md'), 'utf-8'),
             'output': exists(output) ? read(output, 'utf-8') : null,
             'test': require(join(__dirname, filepath, 'index.js'))
         };
