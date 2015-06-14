@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-env mocha */
+
 function test(zone) {
     function onrun() {
         it('should not invoke `onrun` with nested ranges', function () {

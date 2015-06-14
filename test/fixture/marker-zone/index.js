@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-env mocha */
+
 function test(zone) {
     function exception() {
         it('should not invoke `onparse`, `onstringify` with zones',

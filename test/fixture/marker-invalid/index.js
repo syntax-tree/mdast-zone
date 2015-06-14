@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-env mocha */
+
 function test(zone) {
     function onparse() {
         it('should invoke `onparse` when tokenizing', function () {

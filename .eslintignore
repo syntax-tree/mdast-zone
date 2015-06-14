@@ -1,0 +1,7 @@
+build/
+components/
+coverage/
+build.js
+example.js
+mdast-zone.js
+mdast-zone.min.js

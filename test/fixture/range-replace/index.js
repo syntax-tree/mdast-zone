@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-env mocha */
+
 function test(zone) {
     function onrun(start, nodes, end) {
         return [start.node, end.node];

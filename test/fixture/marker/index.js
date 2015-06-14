@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-env mocha */
+
 var assert = require('assert');
 
 function test(zone) {

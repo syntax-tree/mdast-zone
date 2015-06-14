@@ -1,4 +1,15 @@
 {
+  "excludeFiles": [
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "build.js",
+    "example.js",
+    "test/fixture/**/*.js",
+    "mdast-zone.js",
+    "mdast-zone.min.js"
+  ],
   "plugins": [
     "jscs-jsdoc"
   ],
