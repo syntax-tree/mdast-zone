@@ -5,6 +5,16 @@ mdast:
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+0.2.2 / 2015-06-14
+==================
+
+*   Remove `.npmignore` in favour of `files` in `package.json` ([2de4a7f](https://github.com/wooorm/mdast-zone/commit/2de4a7f))
+*   Add mdast-lint as a dev-dependency ([76de662](https://github.com/wooorm/mdast-zone/commit/76de662))
+*   Refactor lint targets ([96eac04](https://github.com/wooorm/mdast-zone/commit/96eac04))
+*   Add `.editorconfig` ([ebb1fce](https://github.com/wooorm/mdast-zone/commit/ebb1fce))
+*   Update mdast, mdast-usage, mdast-yaml-config ([07d92c6](https://github.com/wooorm/mdast-zone/commit/07d92c6))
+*   Update browserify, eslint, jscs-jsdoc ([8382fb4](https://github.com/wooorm/mdast-zone/commit/8382fb4))
+
 0.2.1 / 2015-06-03
 ==================
 
