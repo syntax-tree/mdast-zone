@@ -5,6 +5,12 @@ mdast:
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+0.2.3 / 2015-07-12
+==================
+
+*   Refactor to externalise utilities ([acd041a](https://github.com/wooorm/mdast-zone/commit/acd041a))
+*   Remove peer-dependencies ([5c2ff2c](https://github.com/wooorm/mdast-zone/commit/5c2ff2c))
+
 0.2.2 / 2015-06-14
 ==================
 
