@@ -12,6 +12,9 @@
     "marker",
     "mdast"
   ],
+  "dependencies": {
+    "wooorm/mdast-util-visit": "^0.1.1"
+  },
   "repository": "wooorm/mdast-zone",
   "scripts": [
     "index.js"

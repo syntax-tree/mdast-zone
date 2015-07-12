@@ -2,6 +2,12 @@
 'use strict';
 
 /*
+ * Dependencies.
+ */
+
+var visit = require('mdast-util-visit');
+
+/*
  * Methods.
  */
 
@@ -82,32 +88,6 @@ function marker(name) {
             '\\s*' +
         ')'
     );
-}
-
-/**
- * Visit.
- *
- * @param {Node} tree
- * @param {function(node, parent)} callback
- */
-function visit(tree, callback) {
-    /**
-     * Visit one node.
-     *
-     * @param {Node} node
-     * @param {number} index
-     */
-    function one(node, index) {
-        var parent = this || null;
-
-        callback(node, parent, index);
-
-        if (node.children) {
-            node.children.forEach(one, node);
-        }
-    }
-
-    one(tree);
 }
 
 /**
@@ -267,10 +247,10 @@ function run(settings) {
      * Passed intto `visit`.
      *
      * @param {Node} node
-     * @param {Node} parent
      * @param {number} index
+     * @param {Node} parent
      */
-    function gather(node, parent, index) {
+    function gather(node, index, parent) {
         var result = test(node);
         var type = result && result.type;
 
@@ -376,6 +356,121 @@ function wrapper(options) {
  */
 
 module.exports = wrapper;
+
+},{"mdast-util-visit":2}],2:[function(require,module,exports){
+/**
+ * @author Titus Wormer
+ * @copyright 2015 Titus Wormer. All rights reserved.
+ * @module mdast-util-visit
+ * @fileoverview Utility to recursively walk over mdast nodes.
+ */
+
+'use strict';
+
+/**
+ * Walk forwards.
+ *
+ * @param {Array.<*>} values - Things to iterate over,
+ *   forwards.
+ * @param {function(*, number): boolean} callback - Function
+ *   to invoke.
+ * @return {boolean} - False if iteration stopped.
+ */
+function forwards(values, callback) {
+    var index = -1;
+    var length = values.length;
+
+    while (++index < length) {
+        if (callback(values[index], index) === false) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Walk backwards.
+ *
+ * @param {Array.<*>} values - Things to iterate over,
+ *   backwards.
+ * @param {function(*, number): boolean} callback - Function
+ *   to invoke.
+ * @return {boolean} - False if iteration stopped.
+ */
+function backwards(values, callback) {
+    var index = values.length;
+    var length = -1;
+
+    while (--index > length) {
+        if (callback(values[index], index) === false) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Visit.
+ *
+ * @param {Node} tree - Root node
+ * @param {string} [type] - Node type.
+ * @param {function(node): boolean?} callback - Invoked
+ *   with each found node.  Can return `false` to stop.
+ * @param {boolean} [reverse] - By default, `visit` will
+ *   walk forwards, when `reverse` is `true`, `visit`
+ *   walks backwards.
+ */
+function visit(tree, type, callback, reverse) {
+    var iterate;
+    var one;
+    var all;
+
+    if (typeof type === 'function') {
+        reverse = callback;
+        callback = type;
+        type = null;
+    }
+
+    iterate = reverse ? backwards : forwards;
+
+    /**
+     * Visit `children` in `parent`.
+     */
+    all = function (children, parent) {
+        return iterate(children, function (child, index) {
+            return child && one(child, index, parent);
+        });
+    };
+
+    /**
+     * Visit a single node.
+     */
+    one = function (node, index, parent) {
+        var result;
+
+        index = index || (parent ? 0 : null);
+
+        if (!type || node.type === type) {
+            result = callback(node, index, parent || null);
+        }
+
+        if (node.children && result !== false) {
+            return all(node.children, node);
+        }
+
+        return result;
+    };
+
+    one(tree);
+}
+
+/*
+ * Expose.
+ */
+
+module.exports = visit;
 
 },{}]},{},[1])(1)
 });

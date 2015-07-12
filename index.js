@@ -1,6 +1,12 @@
 'use strict';
 
 /*
+ * Dependencies.
+ */
+
+var visit = require('mdast-util-visit');
+
+/*
  * Methods.
  */
 
@@ -81,32 +87,6 @@ function marker(name) {
             '\\s*' +
         ')'
     );
-}
-
-/**
- * Visit.
- *
- * @param {Node} tree
- * @param {function(node, parent)} callback
- */
-function visit(tree, callback) {
-    /**
-     * Visit one node.
-     *
-     * @param {Node} node
-     * @param {number} index
-     */
-    function one(node, index) {
-        var parent = this || null;
-
-        callback(node, parent, index);
-
-        if (node.children) {
-            node.children.forEach(one, node);
-        }
-    }
-
-    one(tree);
 }
 
 /**
@@ -266,10 +246,10 @@ function run(settings) {
      * Passed intto `visit`.
      *
      * @param {Node} node
-     * @param {Node} parent
      * @param {number} index
+     * @param {Node} parent
      */
-    function gather(node, parent, index) {
+    function gather(node, index, parent) {
         var result = test(node);
         var type = result && result.type;
 
