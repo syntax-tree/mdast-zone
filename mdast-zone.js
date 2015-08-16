@@ -61,7 +61,7 @@ var PARAMETERS = new RegExp(
 /**
  * Create an expression which matches a marker.
  *
- * @param {string} name
+ * @param {string} name - Plug-in name.
  * @return {RegExp}
  */
 function marker(name) {
@@ -93,7 +93,7 @@ function marker(name) {
 /**
  * Parse `value` into an object.
  *
- * @param {string} value
+ * @param {string} value - HTML comment.
  * @return {Object}
  */
 function parameters(value) {
@@ -121,8 +121,9 @@ function parameters(value) {
 /**
  * Factory to test if `node` matches `settings`.
  *
- * @param {Object} settings
- * @param {function(Object)} callback
+ * @param {Object} settings - Configuration.
+ * @param {Function} callback - Invoked iwht a matching
+ *   HTML node.
  * @return {Function}
  */
 function testFactory(settings, callback) {
@@ -132,8 +133,8 @@ function testFactory(settings, callback) {
     /**
      * Test if `node` matches the bound settings.
      *
-     * @param {Node} node
-     * @param {Parser|Compiler} [context]
+     * @param {MDASTNode} node - Node to check.
+     * @param {Parser|Compiler} [context] - Context class.
      * @return {Object?}
      */
     function test(node, context) {
@@ -176,7 +177,7 @@ function testFactory(settings, callback) {
  * Parse factory.
  *
  * @param {Function} tokenize - Previous parser.
- * @param {Object} settings
+ * @param {Object} settings - Configuration.
  */
 function parse(tokenize, settings) {
     var callback = settings.onparse;
@@ -204,7 +205,7 @@ function parse(tokenize, settings) {
  * Stringify factory.
  *
  * @param {Function} compile - Previous compiler.
- * @param {Object} settings
+ * @param {Object} settings - Configuration.
  */
 function stringify(compile, settings) {
     var callback = settings.onstringify;
@@ -217,7 +218,7 @@ function stringify(compile, settings) {
     /**
      * Stringify HTML.
      *
-     * @param {Object} node
+     * @param {MDASTHTMLNode} node - HTML node.
      * @return {string}
      */
     return function (node) {
@@ -230,7 +231,7 @@ function stringify(compile, settings) {
 /**
  * Run factory.
  *
- * @param {Object} settings
+ * @param {Object} settings - Configuration.
  */
 function run(settings) {
     var callback = settings.onrun;
@@ -246,9 +247,10 @@ function run(settings) {
      *
      * Passed intto `visit`.
      *
-     * @param {Node} node
-     * @param {number} index
-     * @param {Node} parent
+     * @param {MDASTNode} node - node to check.
+     * @param {number} index - Position of `node` in
+     *   `parent`.
+     * @param {MDASTNode} parent - Parent of `node`.
      */
     function gather(node, index, parent) {
         var result = test(node);
@@ -296,7 +298,7 @@ function run(settings) {
     /**
      * Modify AST.
      *
-     * @param {Object} node
+     * @param {MDASTNode} node - Root node.
      */
     return function (node) {
         visit(node, gather);
@@ -307,8 +309,8 @@ function run(settings) {
  * Modify mdast to invoke callbacks when HTML commnts are
  * found.
  *
- * @param {MDAST} mdast
- * @param {Object?} options
+ * @param {MDAST} mdast - Instance.
+ * @param {Object?} [options] - Configuration.
  * @return {Function?}
  */
 function attacher(mdast, options) {
@@ -338,7 +340,7 @@ function attacher(mdast, options) {
  * Reason for this is that **mdast** only allows a single
  * function to be `use`d once.
  *
- * @param {Object} options
+ * @param {Object} options - Plugin configuration.
  * @return {Function}
  */
 function wrapper(options) {
@@ -357,12 +359,12 @@ function wrapper(options) {
 
 module.exports = wrapper;
 
-},{"mdast-util-visit":2}],2:[function(require,module,exports){
+},{"unist-util-visit":2}],2:[function(require,module,exports){
 /**
  * @author Titus Wormer
  * @copyright 2015 Titus Wormer. All rights reserved.
- * @module mdast-util-visit
- * @fileoverview Utility to recursively walk over mdast nodes.
+ * @module unist:util:visit
+ * @fileoverview Utility to recursively walk over unist nodes.
  */
 
 'use strict';
