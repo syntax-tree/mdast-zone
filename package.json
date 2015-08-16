@@ -13,7 +13,7 @@
     "mdast"
   ],
   "dependencies": {
-    "mdast-util-visit": "^0.1.1"
+    "unist-util-visit": "^1.0.0"
   },
   "repository": {
     "type": "git",

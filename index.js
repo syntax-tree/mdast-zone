@@ -4,7 +4,7 @@
  * Dependencies.
  */
 
-var visit = require('mdast-util-visit');
+var visit = require('unist-util-visit');
 
 /*
  * Methods.
