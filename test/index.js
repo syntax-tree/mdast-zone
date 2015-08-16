@@ -12,18 +12,25 @@ var zone = require('..');
 var fixtures = require('./fixture');
 
 /*
+ * Methods.
+ */
+
+var equal = assert.strictEqual;
+var throws = assert.throws;
+
+/*
  * Tests.
  */
 
 describe('mdast-zone(options)', function () {
     it('should throw without `options`', function () {
-        assert.throws(function () {
+        throws(function () {
             zone();
         }, /Missing `name` in `options`/);
     });
 
     it('should throw without `options.name`', function () {
-        assert.throws(function () {
+        throws(function () {
             zone({});
         }, /Missing `name` in `options`/);
     });
@@ -32,16 +39,16 @@ describe('mdast-zone(options)', function () {
 /**
  * Describe a single fixture.
  *
- * @param {Object} fixture
+ * @param {Object} fixture - Test context.
  */
 function describeFixture(fixture) {
     var processor = mdast().use(fixture.test(zone));
 
     describe(fixture.name, function () {
-        processor.process(fixture.input, function (err, doc) {
+        processor.process(fixture.input, function (err, file, doc) {
             if (fixture.output) {
                 it('should stringify ' + fixture.name, function (done) {
-                    assert(doc === fixture.output);
+                    equal(doc, fixture.output);
 
                     done(err);
                 });
