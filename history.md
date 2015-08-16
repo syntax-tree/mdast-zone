@@ -5,6 +5,12 @@ mdast:
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+1.0.0 / 2015-08-16
+==================
+
+*   Update mdast ([539390b](https://github.com/wooorm/mdast-zone/commit/539390b))
+*   Update to use unist-util-visit ([fd746f8](https://github.com/wooorm/mdast-zone/commit/fd746f8))
+
 0.2.3 / 2015-07-12
 ==================
 
