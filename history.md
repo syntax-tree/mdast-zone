@@ -5,6 +5,12 @@ mdast:
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+1.0.1 / 2015-08-31
+==================
+
+*   Update eslint-env ([4c1a45a](https://github.com/wooorm/mdast-zone/commit/4c1a45a))
+*   Refactor to replace coveralls with codecov ([989e904](https://github.com/wooorm/mdast-zone/commit/989e904))
+
 1.0.0 / 2015-08-16
 ==================
 
