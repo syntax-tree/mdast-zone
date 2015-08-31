@@ -35,6 +35,7 @@
     "mdast-lint": "^1.0.0",
     "mdast-toc": "^1.0.0",
     "mdast-usage": "^1.0.0",
+    "mdast-validate-links": "^1.0.0",
     "mdast-yaml-config": "^1.0.0",
     "mocha": "^2.0.0"
   },

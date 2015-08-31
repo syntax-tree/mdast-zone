@@ -5,7 +5,8 @@
     "github",
     "toc",
     "usage",
-    "yaml-config"
+    "yaml-config",
+    "validate-links"
   ],
   "settings": {
     "bullet": "*"
