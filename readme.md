@@ -1,4 +1,4 @@
-# mdast-zone [![Build Status](https://img.shields.io/travis/wooorm/mdast-zone.svg?style=flat)](https://travis-ci.org/wooorm/mdast-zone) [![Coverage Status](https://img.shields.io/coveralls/wooorm/mdast-zone.svg?style=flat)](https://coveralls.io/r/wooorm/mdast-zone?branch=master)
+# mdast-zone [![Build Status](https://img.shields.io/travis/wooorm/mdast-zone.svg)](https://travis-ci.org/wooorm/mdast-zone) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/mdast-zone.svg)](https://codecov.io/github/wooorm/mdast-zone)
 
 HTML comments as ranges or markers in [**mdast**](https://github.com/wooorm/mdast).
 
