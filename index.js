@@ -1,4 +1,14 @@
+/**
+ * @author Titus Wormer
+ * @copyright 2015 Titus Wormer
+ * @license MIT
+ * @module mdast:zone
+ * @fileoverview HTML comments as ranges or markers in mdast.
+ */
+
 'use strict';
+
+/* eslint-env commonjs */
 
 /*
  * Dependencies.
