@@ -3,6 +3,12 @@ mdast:
   setext: true
 ---
 
+2.0.0 / 2015-12-24
+==================
+
+*   Update for remark ([96116ce](https://github.com/wooorm/mdast-zone/commit/96116ce))
+*   Refactor for changes in mdast ([16e8ae8](https://github.com/wooorm/mdast-zone/commit/16e8ae8))
+
 <!--lint disable no-multiple-toplevel-headings-->
 
 1.0.1 / 2015-08-31
