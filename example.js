@@ -1,5 +1,5 @@
 var zone = require('./index.js');
-var mdast = require('mdast');
+var remark = require('remark');
 
 // Callback invoked when a `range` is found.
 function onrun(start, nodes, end) {
@@ -19,7 +19,7 @@ function onrun(start, nodes, end) {
 }
 
 // Process a document.
-var doc = mdast().use(zone({
+var doc = remark().use(zone({
     'name': 'foo',
     'onrun': onrun
 })).process(

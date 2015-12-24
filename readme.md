@@ -1,6 +1,7 @@
 # mdast-zone [![Build Status](https://img.shields.io/travis/wooorm/mdast-zone.svg)](https://travis-ci.org/wooorm/mdast-zone) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/mdast-zone.svg)](https://codecov.io/github/wooorm/mdast-zone)
 
-HTML comments as ranges or markers in [**mdast**](https://github.com/wooorm/mdast).
+[**mdast**](https://github.com/wooorm/mdast) utility to treat HTML comments as
+ranges or markers. Useful as a base for remark plugins.
 
 ## Installation
 
@@ -33,9 +34,6 @@ UMD: globals, AMD, and CommonJS ([uncompressed](mdast-zone.js) and [compressed](
 ```html
 <script src="path/to/mdast.js"></script>
 <script src="path/to/mdast-zone.js"></script>
-<script>
-  mdast.use(mdastZone);
-</script>
 ```
 
 ## Table of Contents
@@ -56,7 +54,7 @@ UMD: globals, AMD, and CommonJS ([uncompressed](mdast-zone.js) and [compressed](
 
 ```javascript
 var zone = require('mdast-zone');
-var mdast = require('mdast');
+var remark = require('remark');
 ```
 
 Callback invoked when a `range` is found.
@@ -82,7 +80,7 @@ function onrun(start, nodes, end) {
 Process a document.
 
 ```javascript
-var doc = mdast().use(zone({
+var doc = remark().use(zone({
     'name': 'foo',
     'onrun': onrun
 })).process(
@@ -106,7 +104,8 @@ Bar
 
 ## API
 
-Note that **mdast-zone** is not a plugin by itself. It should be used by one.
+Note that **mdast-zone** is not a plugin by itself. It should be used by a
+remark plugin.
 
 ### zone(options)
 

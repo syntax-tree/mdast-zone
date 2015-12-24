@@ -328,8 +328,9 @@ function run(settings) {
  * @return {Function?}
  */
 function attacher(mdast, options) {
-    var blockTokenizers = mdast.Parser.prototype.blockTokenizers;
-    var inlineTokenizers = mdast.Parser.prototype.inlineTokenizers;
+    var parser = mdast.Parser.prototype;
+    var blockTokenizers = parser.blockTokenizers;
+    var inlineTokenizers = parser.inlineTokenizers;
     var stringifiers = mdast.Compiler.prototype;
 
     if (options.onparse) {

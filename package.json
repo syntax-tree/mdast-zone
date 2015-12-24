@@ -1,7 +1,7 @@
 {
   "name": "mdast-zone",
   "version": "1.0.1",
-  "description": "HTML comments as ranges or markers in mdast",
+  "description": "HTML comments as ranges or markers in remark",
   "license": "MIT",
   "keywords": [
     "html",
@@ -30,13 +30,13 @@
     "istanbul": "^0.3.0",
     "jscs": "^2.0.0",
     "jscs-jsdoc": "^1.0.0",
-    "mdast": "^3.0.0-alpha.1",
+    "mdast": "^3.0.0-alpha.5",
     "mdast-github": "^2.0.0-alpha.1",
-    "mdast-lint": "^1.0.0",
+    "mdast-lint": "^2.0.0-alpha.1",
     "mdast-toc": "^1.0.0",
-    "mdast-usage": "^1.0.0",
+    "mdast-usage": "^2.0.0-alpha.1",
     "mdast-validate-links": "^1.0.0",
-    "mdast-yaml-config": "^1.0.0",
+    "mdast-yaml-config": "^2.0.0-alpha.1",
     "mocha": "^2.0.0"
   },
   "scripts": {
