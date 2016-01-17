@@ -2,13 +2,29 @@
 
 /* eslint-env node */
 
+/**
+ * Assertion.
+ *
+ * @param {Function} zone - Utility.
+ * @return {Function} - Attacher.
+ */
 function assertion(zone) {
+    /**
+     * Run handler.
+     *
+     * @return {Array.<Node>} - Replacement.
+     */
     function onrun() {
         return [];
     }
 
-    function plugin(mdast) {
-        mdast.use(zone({
+    /**
+     * Plug-in.
+     *
+     * @param {Remark} remark - Processor.
+     */
+    function plugin(remark) {
+        remark.use(zone({
             'name': 'foo',
             'onrun': onrun
         }));

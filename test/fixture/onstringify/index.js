@@ -2,7 +2,19 @@
 
 /* eslint-env node */
 
+/**
+ * Assertion.
+ *
+ * @param {Function} zone - Utility.
+ * @param {Object} t - Test.
+ * @return {Function} - Attacher.
+ */
 function assertion(zone, t) {
+    /**
+     * Compilation handler.
+     *
+     * @param {Object} result - Marker.
+     */
     function onstringify(result) {
         t.test('onstringify', function (st) {
             st.equal(result.type, 'marker');
@@ -15,6 +27,11 @@ function assertion(zone, t) {
         });
     }
 
+    /**
+     * Plug-in.
+     *
+     * @param {Remark} remark - Processor.
+     */
     function plugin(remark) {
         remark.use(zone({
             'name': 'foo',

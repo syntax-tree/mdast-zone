@@ -2,11 +2,23 @@
 
 /* eslint-env node */
 
+/**
+ * Assertion.
+ *
+ * @param {Function} zone - Utility.
+ * @param {Object} t - Test.
+ * @return {Function} - Attacher.
+ */
 function assertion(zone, t) {
-    function onrun(result) {
+    /**
+     * Run handler.
+     *
+     * @param {Node} start - First node.
+     */
+    function onrun(start) {
         t.test('marker', function (st) {
             st.notEqual(
-                result.type,
+                start.type,
                 'marker',
                 'should not `onrun` with markers when transforming'
             );
@@ -15,6 +27,11 @@ function assertion(zone, t) {
         });
     }
 
+    /**
+     * Plug-in.
+     *
+     * @param {Remark} remark - Processor.
+     */
     function plugin(remark) {
         remark.use(zone({
             'name': 'foo',

@@ -72,7 +72,7 @@ var PARAMETERS = new RegExp(
  * Create an expression which matches a marker.
  *
  * @param {string} name - Plug-in name.
- * @return {RegExp}
+ * @return {RegExp} - Expression.
  */
 function marker(name) {
     return new RegExp(
@@ -104,7 +104,7 @@ function marker(name) {
  * Parse `value` into an object.
  *
  * @param {string} value - HTML comment.
- * @return {Object}
+ * @return {Object} - Parsed parameters.
  */
 function parameters(value) {
     var attributes = {};
@@ -134,7 +134,7 @@ function parameters(value) {
  * @param {Object} settings - Configuration.
  * @param {Function} callback - Invoked iwht a matching
  *   HTML node.
- * @return {Function}
+ * @return {Function} - Test.
  */
 function testFactory(settings, callback) {
     var name = settings.name;
@@ -145,7 +145,7 @@ function testFactory(settings, callback) {
      *
      * @param {MDASTNode} node - Node to check.
      * @param {Parser|Compiler} [context] - Context class.
-     * @return {Object?}
+     * @return {Object?} - Whether `node` matches.
      */
     function test(node, context) {
         var value;
@@ -201,7 +201,7 @@ function parse(tokenize, settings) {
     /**
      * Parse HTML.
      *
-     * @return {Node}
+     * @return {Node} - Result of overloaded function.
      */
     function replacement() {
         var node = tokenize.apply(this, arguments);
@@ -234,7 +234,7 @@ function stringify(compile, settings) {
      * Stringify HTML.
      *
      * @param {MDASTHTMLNode} node - HTML node.
-     * @return {string}
+     * @return {string} - Compiled document.
      */
     return function (node) {
         test(node, this);
@@ -326,7 +326,7 @@ function run(settings) {
  *
  * @param {MDAST} mdast - Instance.
  * @param {Object?} [options] - Configuration.
- * @return {Function?}
+ * @return {Function?} - Transformer.
  */
 function attacher(mdast, options) {
     var parser = mdast.Parser.prototype;
@@ -357,7 +357,7 @@ function attacher(mdast, options) {
  * function to be `use`d once.
  *
  * @param {Object} options - Plugin configuration.
- * @return {Function}
+ * @return {Function} - Attacher.
  */
 function wrapper(options) {
     if (!options || !options.name) {
