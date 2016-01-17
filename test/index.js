@@ -15,7 +15,7 @@
  */
 
 var assert = require('assert');
-var mdast = require('mdast');
+var remark = require('remark');
 var zone = require('..');
 var fixtures = require('./fixture');
 
@@ -50,7 +50,7 @@ describe('mdast-zone(options)', function () {
  * @param {Object} fixture - Test context.
  */
 function describeFixture(fixture) {
-    var processor = mdast().use(fixture.test(zone));
+    var processor = remark().use(fixture.test(zone));
 
     describe(fixture.name, function () {
         processor.process(fixture.input, function (err, file, doc) {

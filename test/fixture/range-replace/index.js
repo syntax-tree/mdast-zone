@@ -7,8 +7,8 @@ function test(zone) {
         return [start.node, end.node];
     }
 
-    function plugin(mdast) {
-        mdast.use(zone({
+    function plugin(remark) {
+        remark.use(zone({
             'name': 'foo',
             'onrun': onrun
         }));

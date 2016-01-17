@@ -45,7 +45,8 @@ UMD: globals, AMD, and CommonJS ([uncompressed](mdast-zone.js) and [compressed](
     *   [zone(options)](#zoneoptions)
 
         *   [Marker](#marker)
-        *   [function onparse(marker) and function onstringify(marker)](#function-onparsemarker-and-function-onstringifymarker)
+        *   [function onparse(marker)](#function-onparsemarker)
+        *   [function onstringify(marker)](#function-onstringifymarker)
         *   [function onrun(start, nodes, end, scope)](#function-onrunstart-nodes-end-scope)
 
 *   [License](#license)
@@ -111,7 +112,7 @@ remark plugin.
 
 The goal of **zone** is two fold:
 
-1.  Configuration during **mdast**s parse and/or stringification stage,
+1.  Configuration during **remark**s parse and/or stringification stage,
     using **markers**;
 
 2.  Transforming parts of a document without affecting other parts, which
@@ -128,11 +129,11 @@ and ending tags, as siblings, in a parent.
 
     *   `name` (`string`) — Type to look for;
 
-    *   [`onparse`](#function-onparsemarker-and-function-onstringifymarker)
+    *   [`onparse`](#function-onparsemarker)
         (`function (marker)`, optional)
         — Callback invoked when a marker is found during parsing;
 
-    *   [`onstringify`](#function-onparsemarker-and-function-onstringifymarker)
+    *   [`onstringify`](#function-onstringifymarker)
         (`function (marker)`, optional)
         — Callback invoked when a marker is found during stringification;
 
@@ -142,7 +143,7 @@ and ending tags, as siblings, in a parent.
 
 **Returns**
 
-`Function` — Should be passed to [`mdast.use()`](https://github.com/wooorm/mdast#mdastuseplugin-options).
+`Function` — Should be passed to [`remark.use()`](https://github.com/wooorm/remark#remarkuseplugin-options).
 
 #### Marker
 
@@ -176,7 +177,9 @@ Yields:
 *   `parameters` (`Object.<string, *>`) — Parsed attributes;
 *   `node` (`Node`) — Original HTML node.
 
-#### `function onparse(marker)` and `function onstringify(marker)`
+#### `function onparse(marker)`
+
+#### `function onstringify(marker)`
 
 **Parameters**
 

@@ -15,8 +15,8 @@ function test(zone) {
         });
     }
 
-    function plugin(mdast) {
-        mdast.use(zone({
+    function plugin(remark) {
+        remark.use(zone({
             'name': 'foo',
             'onstringify': onstringify
         }));
