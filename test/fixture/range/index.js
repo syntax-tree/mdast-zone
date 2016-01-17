@@ -1,29 +1,29 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onrun(start, nodes, end, scope) {
-        it('should `onrun` with ranges when transforming', function () {
-            assert(start.type === 'start');
-            assert(start.node.type === 'html');
-            assert(start.node.value === '<!--foo start bar="baz"-->');
-            assert(start.attributes === 'bar="baz"');
-            assert(start.parameters.bar === 'baz');
-            assert(!start.parameters.start);
+        t.test('range', function (st) {
+            st.equal(start.type, 'start');
+            st.equal(start.node.type, 'html');
+            st.equal(start.node.value, '<!--foo start bar="baz"-->');
+            st.equal(start.attributes, 'bar="baz"');
+            st.equal(start.parameters.bar, 'baz');
+            st.equal(start.parameters.start, undefined);
 
-            assert(end.type === 'end');
-            assert(end.node.type === 'html');
-            assert(end.node.value === '<!--foo end qux="quux"-->');
-            assert(end.attributes === 'qux="quux"');
-            assert(end.parameters.qux === 'quux');
-            assert(!end.parameters.end);
+            st.equal(end.type, 'end');
+            st.equal(end.node.type, 'html');
+            st.equal(end.node.value, '<!--foo end qux="quux"-->');
+            st.equal(end.attributes, 'qux="quux"');
+            st.equal(end.parameters.qux, 'quux');
+            st.equal(end.parameters.end, undefined);
 
-            assert(scope.start === 1);
-            assert(scope.end === 2);
-            assert(scope.parent.type === 'root');
+            st.equal(scope.start, 1);
+            st.equal(scope.end, 2);
+            st.equal(scope.parent.type, 'root');
+
+            st.end();
         });
     }
 
@@ -37,4 +37,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

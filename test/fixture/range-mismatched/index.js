@@ -1,12 +1,10 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-function test(zone) {
+function assertion(zone) {
     function onrun() {
-        it('should not invoke `onrun` with nested ranges', function () {
-            throw new Error('Duplicate invocations!');
-        });
+        throw new Error('Duplicate invocations!');
     }
 
     function plugin(remark) {
@@ -19,4 +17,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

@@ -1,12 +1,10 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-function test(zone) {
+function assertion(zone) {
     function onparse() {
-        it('should invoke `onparse` when tokenizing', function () {
-            throw new Error('This shouldn’t be invoked!');
-        });
+        throw new Error('This shouldn’t be invoked! (#1)');
     }
 
     function plugin(remark) {
@@ -19,4 +17,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

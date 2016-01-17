@@ -1,23 +1,29 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onparse(result) {
-        var parameters = result.parameters;
+        t.test('attributes-number', function (st) {
+            st.equal(
+                result.parameters.bar,
+                Infinity,
+                'should parse `"Infinity"` as `Infinity`'
+            );
 
-        it('should parse `"Infinity"` as `Infinity`', function () {
-            assert(parameters.bar === Infinity);
-        });
+            st.equal(
+                result.parameters.baz,
+                1,
+                'should parse `"1"` as `1`'
+            );
 
-        it('should parse `"1"` as `1`', function () {
-            assert(parameters.baz === 1);
-        });
+            st.equal(
+                result.parameters.qux,
+                -1,
+                'should parse `"-1"` as `-1`'
+            );
 
-        it('should parse `"-1"` as `-1`', function () {
-            assert(parameters.qux === -1);
+            st.end();
         });
     }
 
@@ -31,4 +37,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

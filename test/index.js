@@ -8,63 +8,55 @@
 
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
 /*
  * Dependencies.
  */
 
-var assert = require('assert');
+var test = require('tape');
 var remark = require('remark');
 var zone = require('..');
 var fixtures = require('./fixture');
 
 /*
- * Methods.
- */
-
-var equal = assert.strictEqual;
-var throws = assert.throws;
-
-/*
  * Tests.
  */
 
-describe('mdast-zone(options)', function () {
-    it('should throw without `options`', function () {
-        throws(function () {
+test('mdast-zone(options)', function (t) {
+    t.throws(
+        function () {
             zone();
-        }, /Missing `name` in `options`/);
-    });
+        },
+        /Missing `name` in `options`/,
+        'should throw without `options`'
+    );
 
-    it('should throw without `options.name`', function () {
-        throws(function () {
+    t.throws(
+        function () {
             zone({});
-        }, /Missing `name` in `options`/);
-    });
+        },
+        /Missing `name` in `options`/,
+        'should throw without `options.name`'
+    );
+
+    t.end();
 });
 
-/**
- * Describe a single fixture.
- *
- * @param {Object} fixture - Test context.
- */
-function describeFixture(fixture) {
-    var processor = remark().use(fixture.test(zone));
+test('Fixtures', function (t) {
+    fixtures.forEach(function (fixture) {
+        var processor = remark().use(fixture.test(zone, t));
 
-    describe(fixture.name, function () {
         processor.process(fixture.input, function (err, file, doc) {
-            if (fixture.output) {
-                it('should stringify ' + fixture.name, function (done) {
-                    equal(doc, fixture.output);
+            t.ifError(err, 'should not fail (' + fixture.name + ')');
 
-                    done(err);
-                });
+            if (fixture.output) {
+                t.equal(
+                    doc,
+                    fixture.output,
+                    'should stringify ' + fixture.name
+                );
             }
         });
     });
-}
-
-describe('Fixtures', function () {
-    fixtures.forEach(describeFixture);
 });

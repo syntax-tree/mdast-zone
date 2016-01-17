@@ -1,14 +1,10 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-function test(zone) {
+function assertion(zone) {
     function exception() {
-        it('should not invoke `onparse`, `onstringify` with zones',
-            function () {
-                throw new Error('This shouldn’t be invoked!');
-            }
-        );
+        throw new Error('This shouldn’t be invoked! (#1)');
     }
 
     function plugin(mdast) {
@@ -22,4 +18,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

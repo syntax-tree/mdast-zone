@@ -1,15 +1,17 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onparse(result) {
-        var parameters = result.parameters;
+        t.test('attributes-empty', function (st) {
+            st.equal(
+                result.parameters.bar,
+                true,
+                'should parse attributes without value'
+            );
 
-        it('should parse attributes without value', function () {
-            assert(parameters.bar === true);
+            st.end();
         });
     }
 
@@ -23,4 +25,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

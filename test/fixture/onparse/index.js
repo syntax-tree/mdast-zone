@@ -1,17 +1,17 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onparse(result) {
-        it('should invoke `onparse` when tokenizing', function () {
-            assert(result.type === 'marker');
-            assert(result.node.type === 'html');
-            assert(result.node.value === '<!--foo bar="baz"-->');
-            assert(result.attributes === 'bar="baz"');
-            assert(result.parameters.bar === 'baz');
+        t.test('onparse', function (st) {
+            st.equal(result.type, 'marker');
+            st.equal(result.node.type, 'html');
+            st.equal(result.node.value, '<!--foo bar="baz"-->');
+            st.equal(result.attributes, 'bar="baz"');
+            st.equal(result.parameters.bar, 'baz');
+
+            st.end();
         });
     }
 
@@ -25,4 +25,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

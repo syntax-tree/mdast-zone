@@ -1,28 +1,28 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     var index = -1;
 
     function onrun(start, nodes, end, scope) {
-        it('should not invoke `onrun` with nested ranges', function () {
-            assert(nodes.length === 3);
-            assert(nodes[0].type === 'html');
-            assert(nodes[1].type === 'paragraph');
-            assert(nodes[2].type === 'html');
+        t.test('range-nesting', function (st) {
+            st.equal(nodes.length, 3);
+            st.equal(nodes[0].type, 'html');
+            st.equal(nodes[1].type, 'paragraph');
+            st.equal(nodes[2].type, 'html');
 
-            assert(scope.start === 1);
-            assert(scope.end === 5);
-            assert(scope.parent.type === 'root');
+            st.equal(scope.start, 1);
+            st.equal(scope.end, 5);
+            st.equal(scope.parent.type, 'root');
 
             index++;
 
             if (index !== 0) {
                 throw new Error('Duplicate invocations!');
             }
+
+            st.end();
         });
     }
 
@@ -36,4 +36,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

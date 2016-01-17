@@ -1,21 +1,21 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onrun(start, nodes, end, scope) {
-        it('should `onrun` with ranges when transforming', function () {
-            assert(nodes.length === 1);
-            assert(nodes[0].type === 'paragraph');
-            assert(nodes[0].children.length === 1);
-            assert(nodes[0].children[0].type === 'text');
-            assert(nodes[0].children[0].value === 'Foo.');
+        t.test('range-nodes', function (st) {
+            st.equal(nodes.length, 1);
+            st.equal(nodes[0].type, 'paragraph');
+            st.equal(nodes[0].children.length, 1);
+            st.equal(nodes[0].children[0].type, 'text');
+            st.equal(nodes[0].children[0].value, 'Foo.');
 
-            assert(scope.start === 1);
-            assert(scope.end === 3);
-            assert(scope.parent.type === 'root');
+            st.equal(scope.start, 1);
+            st.equal(scope.end, 3);
+            st.equal(scope.parent.type, 'root');
+
+            st.end();
         });
     }
 
@@ -29,4 +29,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

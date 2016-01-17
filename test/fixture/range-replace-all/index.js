@@ -1,8 +1,8 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-function test(zone) {
+function assertion(zone) {
     function onrun() {
         return [];
     }
@@ -17,4 +17,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;

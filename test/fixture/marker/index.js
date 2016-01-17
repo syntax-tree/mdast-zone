@@ -1,13 +1,17 @@
 'use strict';
 
-/* eslint-env node, mocha */
+/* eslint-env node */
 
-var assert = require('assert');
-
-function test(zone) {
+function assertion(zone, t) {
     function onrun(result) {
-        it('should not `onrun` with markers when transforming', function () {
-            assert(result.type !== 'marker');
+        t.test('marker', function (st) {
+            st.notEqual(
+                result.type,
+                'marker',
+                'should not `onrun` with markers when transforming'
+            );
+
+            st.end();
         });
     }
 
@@ -21,4 +25,4 @@ function test(zone) {
     return plugin;
 }
 
-module.exports = test;
+module.exports = assertion;
