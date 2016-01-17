@@ -19,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/wooorm/mdast-zone.git"
   },
+  "bugs": "https://github.com/wooorm/mdast-zone/issues",
   "author": "Titus Wormer <tituswormer@gmail.com>",
   "files": [
     "index.js"
