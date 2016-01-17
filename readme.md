@@ -11,18 +11,6 @@ ranges or markers. Useful as a base for remark plugins.
 npm install mdast-zone
 ```
 
-[Component.js](https://github.com/componentjs/component)
-
-```bash
-component install wooorm/mdast-zone
-```
-
-[Bower](http://bower.io/#install-packages)
-
-```bash
-bower install mdast-zone
-```
-
 [Duo](http://duojs.org/#getting-started)
 
 ```javascript
