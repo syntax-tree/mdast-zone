@@ -11,18 +11,9 @@ ranges or markers. Useful as a base for remark plugins.
 npm install mdast-zone
 ```
 
-[Duo](http://duojs.org/#getting-started)
-
-```javascript
-var zone = require('wooorm/mdast-zone');
-```
-
-UMD: globals, AMD, and CommonJS ([uncompressed](mdast-zone.js) and [compressed](mdast-zone.min.js)):
-
-```html
-<script src="path/to/mdast.js"></script>
-<script src="path/to/mdast-zone.js"></script>
-```
+**mdast-util-zone** is also available for [duo][],
+and as an AMD, CommonJS, and globals module,
+[uncompressed and compressed][releases].
 
 ## Table of Contents
 
@@ -205,3 +196,5 @@ and `end`s HTML comments) with.
 ## License
 
 [MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+
+[releases]: https://github.com/wooorm/mdast-zone/releases
