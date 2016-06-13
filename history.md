@@ -5,6 +5,13 @@ remark:
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+2.0.2 / 2016-06-13
+==================
+
+*   Update `readme.md` ([`7252bb7`](https://github.com/wooorm/mdast-zone/commit/7252bb7))
+*   Remove support for Duo ([`78a0c9c`](https://github.com/wooorm/mdast-zone/commit/78a0c9c))
+*   Update dependencies, dev-dependencies ([`d096a9e`](https://github.com/wooorm/mdast-zone/commit/d096a9e))
+
 2.0.1 / 2016-01-17
 ==================
 
