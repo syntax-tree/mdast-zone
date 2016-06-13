@@ -14,6 +14,8 @@
  * Dependencies.
  */
 
+var trim = require('trim');
+var commentMarker = require('mdast-comment-marker');
 var visit = require('unist-util-visit');
 
 /*
@@ -21,111 +23,6 @@ var visit = require('unist-util-visit');
  */
 
 var splice = [].splice;
-
-/*
- * Expression for parsing parameters.
- */
-
-var PARAMETERS = new RegExp(
-    '\\s*' +
-    '(' +
-        '[-a-z09_]+' +
-    ')' +
-    '(?:' +
-        '=' +
-        '(?:' +
-            '"' +
-            '(' +
-                '(?:' +
-                    '\\\\[\\s\\S]' +
-                    '|' +
-                    '[^"]' +
-                ')+' +
-            ')' +
-            '"' +
-            '|' +
-            '\'' +
-            '(' +
-                '(?:' +
-                    '\\\\[\\s\\S]' +
-                    '|' +
-                    '[^\']' +
-                ')+' +
-            ')' +
-            '\'' +
-            '|' +
-            '(' +
-                '(?:' +
-                    '\\\\[\\s\\S]' +
-                    '|' +
-                    '[^"\'\\s]' +
-                ')+' +
-            ')' +
-        ')' +
-    ')?' +
-    '\\s*',
-    'gi'
-);
-
-/**
- * Create an expression which matches a marker.
- *
- * @param {string} name - Plug-in name.
- * @return {RegExp} - Expression.
- */
-function marker(name) {
-    return new RegExp(
-        '(' +
-            '\\s*' +
-            '<!--' +
-            '\\s*' +
-            '(' +
-                name +
-            ')' +
-            '\\s*' +
-            '(' +
-                'start' +
-                '|' +
-                'end' +
-            ')?' +
-            '\\s*' +
-            '(' +
-                '[\\s\\S]*?' +
-            ')' +
-            '\\s*' +
-            '-->' +
-            '\\s*' +
-        ')'
-    );
-}
-
-/**
- * Parse `value` into an object.
- *
- * @param {string} value - HTML comment.
- * @return {Object} - Parsed parameters.
- */
-function parameters(value) {
-    var attributes = {};
-
-    value.replace(PARAMETERS, function ($0, $1, $2, $3, $4) {
-        var result = $2 || $3 || $4 || '';
-
-        if (result === 'true' || result === '') {
-            result = true;
-        } else if (result === 'false') {
-            result = false;
-        } else if (!isNaN(result)) {
-            result = Number(result);
-        }
-
-        attributes[$1] = result;
-
-        return '';
-    });
-
-    return attributes;
-}
 
 /**
  * Factory to test if `node` matches `settings`.
@@ -137,7 +34,6 @@ function parameters(value) {
  */
 function testFactory(settings, callback) {
     var name = settings.name;
-    var expression = marker(name);
 
     /**
      * Test if `node` matches the bound settings.
@@ -147,37 +43,30 @@ function testFactory(settings, callback) {
      * @return {Object?} - Whether `node` matches.
      */
     function test(node, context) {
-        var value;
-        var match;
-        var result;
+        var marker = commentMarker(node);
+        var attributes;
+        var head;
 
-        if (!node || node.type !== 'html') {
+        if (!marker || marker.name !== name) {
             return null;
         }
 
-        value = node.value;
-        match = value.match(expression);
+        attributes = marker.attributes;
+        head = attributes.match(/(start|end)\b/);
 
-        if (
-            !match ||
-            match[1].length !== value.length ||
-            match[2] !== settings.name
-        ) {
-            return null;
+        if (head) {
+            head = head[0];
+            marker.attributes = trim.left(attributes.slice(head.length));
+            marker.parameters[head] = undefined;
         }
 
-        result = {
-            'type': match[3] || 'marker',
-            'attributes': match[4] || '',
-            'parameters': parameters(match[4] || ''),
-            'node': node
-        };
+        marker.type = head || 'marker';
 
         if (callback) {
-            callback(result, context);
+            callback(marker, context);
         }
 
-        return result;
+        return marker;
     }
 
     return test;
@@ -331,11 +220,11 @@ function attacher(mdast, options) {
     var parser = mdast.Parser.prototype;
     var blockTokenizers = parser.blockTokenizers;
     var inlineTokenizers = parser.inlineTokenizers;
-    var stringifiers = mdast.Compiler.prototype;
+    var stringifiers = mdast.Compiler.prototype.visitors;
 
     if (options.onparse) {
         blockTokenizers.html = parse(blockTokenizers.html, options);
-        inlineTokenizers.tag = parse(inlineTokenizers.tag, options);
+        inlineTokenizers.html = parse(inlineTokenizers.html, options);
     }
 
     if (options.onstringify) {

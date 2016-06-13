@@ -47,12 +47,12 @@ test('Fixtures', function (t) {
     fixtures.forEach(function (fixture) {
         var processor = remark().use(fixture.test(zone, t));
 
-        processor.process(fixture.input, function (err, file, doc) {
+        processor.process(fixture.input, function (err, file) {
             t.ifError(err, 'should not fail (' + fixture.name + ')');
 
             if (fixture.output) {
                 t.equal(
-                    doc,
+                    String(file),
                     fixture.output,
                     'should stringify ' + fixture.name
                 );

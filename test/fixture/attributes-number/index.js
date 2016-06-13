@@ -42,10 +42,10 @@ function assertion(zone, t) {
     /**
      * Plug-in.
      *
-     * @param {Remark} remark - Processor.
+     * @param {Unified} processor - Processor.
      */
-    function plugin(remark) {
-        remark.use(zone({
+    function plugin(processor) {
+        processor.use(zone({
             'name': 'foo',
             'onparse': onparse
         }));
