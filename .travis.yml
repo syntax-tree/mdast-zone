@@ -1,11 +1,10 @@
 language: node_js
 node_js:
-- '0.10'
 - '0.11'
 - '0.12'
 - '4.0'
 - '5.0'
-- iojs
+- '6.0'
 sudo: false
 after_success:
 - bash <(curl -s https://codecov.io/bash)
@@ -16,6 +15,7 @@ deploy:
       secure: lk+qRYP//N4OrBYx1hFVQPWw/RhvNGnejN4Ma0lleBqUEZiydlu1WVin5C/uQcSgSys7e/TvxnZfH/XWKOZAAtcyN/CTCpaUKD7cOy3lqN+dgPcSsyweGgLTr/FJLnMsoT6Pp6+ZG2vV9MbTyHyr6tBe/hBDUPDc450dH7fbyok=
     on:
       tags: true
+      node: '6.0'
   - provider: releases
     api_key:
       secure: KvanBnSlzQFSj+hMzeYhDppLbHaZHwr3X4YkbsLneQCGHBsqHvpkoRcgh/0YxIUBo/XZUD1Q4bR1FzhSuN8INom0D8DYa8wsoSBnG+IWv4GSosVw+DFMoMOwZLGAlnVQLrP9d0hkoprHIc8th6pv9+Zy2DZx22ljdYKTOgFT4ns=
@@ -24,3 +24,4 @@ deploy:
       - "mdast-zone.min.js"
     on:
       tags: true
+      node: '6.0'
