@@ -1,33 +1,20 @@
-# mdast-zone [![Build Status][travis-badge]][travis] [![Coverage Status][coverage-badge]][coverage]
+# mdast-zone [![Build Status][build-badge]][build-status] [![Coverage Status][coverage-badge]][coverage-status] [![Chat][chat-badge]][chat]
 
-[**mdast**][mdast] utility to treat HTML comments as ranges or markers.
+<!--lint disable list-item-spacing heading-increment no-duplicate-headings-->
+
+[**MDAST**][mdast] utility to treat HTML comments as ranges or markers.
 Useful as a base for remark plugins.
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install mdast-zone
 ```
 
-**mdast-zone** is also available for [duo][], and as an AMD, CommonJS,
-and globals module, [uncompressed and compressed][releases].
-
-## Table of Contents
-
-*   [Usage](#usage)
-
-*   [API](#api)
-
-    *   [zone(options)](#zoneoptions)
-
-        *   [Marker](#marker)
-        *   [function onparse(marker)](#function-onparsemarker)
-        *   [function onstringify(marker)](#function-onstringifymarker)
-        *   [function onrun(start, nodes, end, scope)](#function-onrunstart-nodes-end-scope)
-
-*   [License](#license)
+**mdast-zone** is also available as an AMD, CommonJS, and
+globals module, [uncompressed and compressed][releases].
 
 ## Usage
 
@@ -101,114 +88,94 @@ The first is exposed by this plugin in the form of an HTML comment which
 sort-of looks like a self-closing, custom tag. The second by placing starting
 and ending tags, as siblings, in a parent.
 
-**Parameters**:
+###### `options`
 
-*   `options` (`Object`):
+*   `name` (`string`) — Type to look for;
+*   `onparse` ([`Function`][onparse], optional)
+    — Callback invoked when a marker is found during parsing;
+*   `onstringify` ([`Function`][onstringify], optional)
+    — Callback invoked when a marker is found during stringification;
+*   `onrun` ([Function][onrun], optional)
+    — Callback invoked when a range is found during transformation.
 
-    *   `name` (`string`) — Type to look for;
+###### Returns
 
-    *   `onparse` ([`Function`](#function-onparsemarker), optional)
-        — Callback invoked when a marker is found during parsing;
-
-    *   `onstringify` ([`Function`](#function-onstringifymarker), optional)
-        — Callback invoked when a marker is found during stringification;
-
-    *   `onrun` ([Function](#function-onrunstart-nodes-end-scope), optional)
-        — Callback invoked when a range is found during transformation.
-
-**Returns**: `Function` — Should be passed to [`remark.use()`](https://github.com/wooorm/remark#remarkuseplugin-options).
-
-#### `Marker`
-
-**Example**
-
-```markdown
-<!--foo bar="baz" qux-->
-```
-
-Yields:
-
-```json
-{
-  "type": "marker",
-  "attributes": "bar=\"baz\" qux",
-  "parameters": {
-    "bar": "baz",
-    "qux": true
-  },
-  "node": {
-    "type": "html",
-    "value": "<!--foo bar=\"baz\" qux-->"
-  }
-}
-```
-
-**Fields**
-
-*   `type` (`string`) — Either `"marker"`, `"start"`, or `"end"`;
-*   `attributes` (`string`) — Raw, unparsed value;
-*   `parameters` (`Object.<string, *>`) — Parsed attributes;
-*   `node` ([`Node`][mdast-node]) — Original HTML node.
+`Function`, which should be passed to [`remark.use()`][use].
 
 #### `function onparse(marker)`
 
 #### `function onstringify(marker)`
 
-**Parameters**
-
-*   `marker` ([`Marker`](#marker)) — Marker.
-
 When passing `name: "foo"` and `onparse: console.log.bind(console)` to
-`zone()`, comments in the form of `<!--foo bar="baz" qux-->` are detected and
-`onparse` is invoked:
+`zone()`, comments in the form of `<!--foo bar="baz" qux-->` are detected
+and `onparse` is invoked during the parsing phase.
 
 An `onstringify` method could (instead, or both) be passed to `zone()`,
-which would be invoked with the same `marker` but during the stringification
-phase.
+which would be invoked with the same `marker` but during the
+stringification phase.
 
-#### function onrun(start, nodes, end, scope)
+###### Parameters
 
-**Parameters**
+*   `marker` ([`Marker`][marker]).
 
-*   `start` ([`Marker`](#marker)) — Start of range;
+#### `function onrun(start, nodes, end, scope)`
 
+Invoked during the transformation phase with markers which determine
+a range: two markers, the first `start` and the last `end`, and the
+content inside.
+
+###### Parameters
+
+*   `start` ([`Marker`][marker]) — Start of range;
 *   `nodes` (`Array.<Node>`) — Nodes between `start` and `end`;
-
-*   `end` ([`Marker`](#marker)) — End of range.
-
+*   `end` ([`Marker`][marker]) — End of range.
 *   `scope` (`Object`):
 
-    *   `parent` ([`Node`][mdast-node]) — Parent of the range;
+    *   `parent` ([`Node`][node]) — Parent of the range;
     *   `start` (`number`) — Index of `start` in `parent`;
     *   `end` (`number`) — Index of `end` in `parent`.
 
-**Returns**: `Array.<Node>?` — Zero or more nodes to replace the range
-(including `start` and `end`s HTML comments) with.
+###### Returns
+
+`Array.<Node>?` — Zero or more nodes to replace the range (including
+`start` and `end`s markers) with.
 
 ## License
 
-[MIT][license] © [Titus Wormer][home]
+[MIT][license] © [Titus Wormer][author]
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/mdast-zone.svg
+[build-badge]: https://img.shields.io/travis/wooorm/mdast-zone.svg
 
-[travis]: https://travis-ci.org/wooorm/mdast-zone
+[build-status]: https://travis-ci.org/wooorm/mdast-zone
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/mdast-zone.svg
 
-[coverage]: https://codecov.io/github/wooorm/mdast-zone
+[coverage-status]: https://codecov.io/github/wooorm/mdast-zone
 
-[mdast]: https://github.com/wooorm/mdast
+[chat-badge]: https://img.shields.io/gitter/room/wooorm/remark.svg
 
-[mdast-node]: https://github.com/wooorm/mdast#node
-
-[npm-install]: https://docs.npmjs.com/cli/install
-
-[duo]: http://duojs.org/#getting-started
+[chat]: https://gitter.im/wooorm/remark
 
 [releases]: https://github.com/wooorm/mdast-zone/releases
 
 [license]: LICENSE
 
-[home]: http://wooorm.com
+[author]: http://wooorm.com
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[mdast]: https://github.com/wooorm/mdast
+
+[node]: https://github.com/wooorm/mdast#node
+
+[onparse]: #function-onparsemarker
+
+[onstringify]: #function-onstringifymarker
+
+[onrun]: #function-onrunstart-nodes-end-scope
+
+[use]: https://github.com/wooorm/unified#processoruseplugin-options
+
+[marker]: https://github.com/wooorm/mdast-comment-marker#marker
