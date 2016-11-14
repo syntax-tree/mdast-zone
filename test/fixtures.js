@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable import/no-dynamic-require */
+
 var fs = require('fs');
 var path = require('path');
 var negate = require('negate');

@@ -1,11 +1,3 @@
-/**
- * @author Titus Wormer
- * @copyright 2015 Titus Wormer
- * @license MIT
- * @module remark:zone
- * @fileoverview HTML comments as ranges in remark.
- */
-
 'use strict';
 
 /* Expose. */
@@ -18,11 +10,7 @@ var visit = require('unist-util-visit');
 /* Methods. */
 var splice = [].splice;
 
-/**
- * Run factory.
- *
- * @param {Object} settings - Configuration.
- */
+/* Run factory. */
 function zone(node, name, callback) {
   var nodes = [];
   var start = null;

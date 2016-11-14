@@ -1,20 +1,10 @@
-/**
- * @author Titus Wormer
- * @copyright 2015 Titus Wormer
- * @license MIT
- * @module mdast-zone
- * @fileoverview Test suite for `mdast-zone`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var remark = require('remark');
 var zone = require('..');
 var fixtures = require('./fixtures');
 
-/* Tests. */
 test('mdast-zone', function (t) {
   fixtures.forEach(function (fixture) {
     remark()
