@@ -16,11 +16,7 @@ npm install mdast-zone
 ```javascript
 var zone = require('mdast-zone');
 var remark = require('remark');
-```
 
-Callback invoked when a `range` is found.
-
-```javascript
 remark()
   .use(function () {
     return transformer;
