@@ -88,15 +88,15 @@ with, optional.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/mdast-zone.svg
+[travis-badge]: https://img.shields.io/travis/syntax-tree/mdast-zone.svg
 
-[travis]: https://travis-ci.org/wooorm/mdast-zone
+[travis]: https://travis-ci.org/syntax-tree/mdast-zone
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/mdast-zone.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-zone.svg
 
 [chat-badge]: https://img.shields.io/gitter/room/wooorm/remark.svg
 
-[codecov]: https://codecov.io/github/wooorm/mdast-zone
+[codecov]: https://codecov.io/github/syntax-tree/mdast-zone
 
 [chat]: https://gitter.im/wooorm/remark
 
@@ -106,7 +106,7 @@ with, optional.
 
 [author]: http://wooorm.com
 
-[mdast]: https://github.com/wooorm/mdast
+[mdast]: https://github.com/syntax-tree/mdast
 
 [remark]: https://github.com/wooorm/remark
 

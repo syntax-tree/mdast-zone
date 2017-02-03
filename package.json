@@ -12,8 +12,8 @@
     "marker",
     "mdast"
   ],
-  "repository": "https://github.com/wooorm/mdast-zone",
-  "bugs": "https://github.com/wooorm/mdast-zone/issues",
+  "repository": "https://github.com/syntax-tree/mdast-zone",
+  "bugs": "https://github.com/syntax-tree/mdast-zone/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
