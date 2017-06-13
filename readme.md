@@ -13,37 +13,46 @@ npm install mdast-zone
 
 ## Usage
 
+Say we have the following file, `example.md`:
+
+```markdown
+<!--foo start-->
+
+Foo
+
+<!--foo end-->
+```
+
+And our script, `example.js`, looks as follows:
+
 ```javascript
-var zone = require('mdast-zone');
+var vfile = require('to-vfile');
 var remark = require('remark');
+var zone = require('mdast-zone');
 
 remark()
-  .use(function () {
-    return transformer;
-
-    function transformer(tree) {
-      zone(tree, 'foo', function (start, nodes, end) {
-        return [
-          start,
-          {type: 'paragraph', children: [{type: 'text', value: 'Bar'}]},
-          end
-        ]
-      })
-    }
-  })
-  .process([
-    '<!--foo start-->',
-    '',
-    'Foo',
-    '',
-    '<!--foo end-->'
-  ].join('\n'), function (err, file) {
+  .use(plugin)
+  .process(vfile.readSync('example.md'), function (err, file) {
     if (err) throw err;
     console.log(String(file));
   });
+
+function plugin() {
+  return transformer;
+  function transformer(tree) {
+    zone(tree, 'foo', mutate);
+  }
+  function mutate(start, nodes, end) {
+    return [
+      start,
+      {type: 'paragraph', children: [{type: 'text', value: 'Bar'}]},
+      end
+    ];
+  }
+}
 ```
 
-Yields:
+Now, running `node example` yields:
 
 ```markdown
 <!--foo start-->
