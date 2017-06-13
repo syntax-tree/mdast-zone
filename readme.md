@@ -70,10 +70,9 @@ Search `tree` for comment ranges (“zones”).
 
 ###### Parameters
 
-*   `tree` ([`Node`][mdast]) — Node to search for ranges.
-*   `name` (`string`) — Name of ranges to search for;
-*   `handler` ([`Function`][handler]) — Function invoked for each found
-    range.
+*   `tree` ([`Node`][mdast]) — Node to search for ranges
+*   `name` (`string`) — Name of ranges to search for
+*   `handler` ([`Function`][handler]) — Function invoked for each found range
 
 #### `function handler(start, nodes, end)`
 
@@ -82,9 +81,9 @@ and the last `end`, and the content inside.
 
 ###### Parameters
 
-*   `start` ([`Node`][mdast]) — Start of range (an HTML comment node);
-*   `nodes` (`Array.<Node>`) — Nodes between `start` and `end`;
-*   `end` ([`Node`][mdast]) — End of range (an HTML comment node);
+*   `start` ([`Node`][mdast]) — Start of range (an HTML comment node)
+*   `nodes` (`Array.<Node>`) — Nodes between `start` and `end`
+*   `end` ([`Node`][mdast]) — End of range (an HTML comment node)
 
 ###### Returns
 
