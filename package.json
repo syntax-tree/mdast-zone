@@ -12,7 +12,7 @@
     "marker",
     "mdast"
   ],
-  "repository": "https://github.com/syntax-tree/mdast-zone",
+  "repository": "syntax-tree/mdast-zone",
   "bugs": "https://github.com/syntax-tree/mdast-zone/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
