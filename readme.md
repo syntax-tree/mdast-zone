@@ -26,28 +26,30 @@ Foo
 And our script, `example.js`, looks as follows:
 
 ```javascript
-var vfile = require('to-vfile');
-var remark = require('remark');
-var zone = require('mdast-zone');
+var vfile = require('to-vfile')
+var remark = require('remark')
+var zone = require('mdast-zone')
 
 remark()
   .use(plugin)
-  .process(vfile.readSync('example.md'), function (err, file) {
-    if (err) throw err;
-    console.log(String(file));
-  });
+  .process(vfile.readSync('example.md'), function(err, file) {
+    if (err) throw err
+    console.log(String(file))
+  })
 
 function plugin() {
-  return transformer;
-  function transformer(tree) {
-    zone(tree, 'foo', mutate);
+  return transform
+
+  function transform(tree) {
+    zone(tree, 'foo', mutate)
   }
+
   function mutate(start, nodes, end) {
     return [
       start,
       {type: 'paragraph', children: [{type: 'text', value: 'Bar'}]},
       end
-    ];
+    ]
   }
 }
 ```

@@ -1,30 +1,38 @@
-'use strict';
+'use strict'
 
-var test = require('tape');
-var remark = require('remark');
-var zone = require('..');
-var fixtures = require('./fixtures');
+var test = require('tape')
+var remark = require('remark')
+var zone = require('..')
+var fixtures = require('./fixtures')
 
-test('mdast-zone', function (t) {
-  fixtures.forEach(function (fixture) {
+test('mdast-zone', function(t) {
+  fixtures.forEach(each)
+
+  t.end()
+
+  function each(fixture) {
     remark()
-      .use(function () {
-        return function (tree) {
-          fixture.test(t, zone, tree);
-        };
-      })
-      .process(fixture.input, function (err, file) {
-        t.ifError(err, 'should not fail (' + fixture.name + ')');
+      .use(plugin)
+      .process(fixture.input, done)
 
-        if (fixture.output) {
-          t.equal(
-            String(file),
-            fixture.output,
-            'should stringify ' + fixture.name
-          );
-        }
-      });
-  });
+    function done(err, file) {
+      t.ifError(err, 'should not fail (' + fixture.name + ')')
 
-  t.end();
-});
+      if (fixture.output) {
+        t.equal(
+          String(file),
+          String(fixture.output),
+          'should stringify ' + fixture.name
+        )
+      }
+    }
+
+    function plugin() {
+      return transform
+    }
+
+    function transform(tree) {
+      fixture.test(t, zone, tree)
+    }
+  }
+})

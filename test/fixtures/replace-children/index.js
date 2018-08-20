@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-module.exports = assertion;
+module.exports = assertion
 
 function assertion(t, zone, tree) {
-  zone(tree, 'foo', handle);
+  zone(tree, 'foo', handle)
 
   function handle(start, nodes, end) {
     return [
@@ -14,6 +14,6 @@ function assertion(t, zone, tree) {
         children: [{type: 'text', value: 'Bar'}]
       },
       end
-    ];
+    ]
   }
 }

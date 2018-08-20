@@ -1,24 +1,22 @@
-'use strict';
+'use strict'
 
-module.exports = assertion;
+module.exports = assertion
 
 function assertion(t, zone, tree) {
-  var count = 0;
+  var count = 0
 
-  zone(tree, 'foo', handle);
+  t.test('nodes', function(st) {
+    st.plan(6)
 
-  function handle(start, nodes) {
-    t.test('range-children', function (st) {
-      st.equal(nodes.length, 1);
-      st.equal(nodes[0].type, 'paragraph');
-      st.equal(nodes[0].children.length, 1);
-      st.equal(nodes[0].children[0].type, 'text');
-      st.equal(nodes[0].children[0].value, 'Foo.');
+    zone(tree, 'foo', handle)
 
-      count++;
-      st.equal(count, 1);
-
-      st.end();
-    });
-  }
+    function handle(start, nodes) {
+      st.equal(nodes.length, 1)
+      st.equal(nodes[0].type, 'paragraph')
+      st.equal(nodes[0].children.length, 1)
+      st.equal(nodes[0].children[0].type, 'text')
+      st.equal(nodes[0].children[0].value, 'Foo.')
+      st.equal(++count, 1)
+    }
+  })
 }

@@ -1,21 +1,19 @@
-'use strict';
+'use strict'
 
-module.exports = assertion;
+module.exports = assertion
 
 function assertion(t, zone, tree) {
-  zone(tree, 'foo', handle);
+  t.test('range', function(st) {
+    st.plan(5)
 
-  function handle(start, nodes, end) {
-    t.test('range', function (st) {
-      st.equal(start.type, 'html');
-      st.equal(start.value, '<!--foo start bar="baz"-->');
+    zone(tree, 'foo', handle)
 
-      st.deepEqual(nodes, []);
-
-      st.equal(end.type, 'html');
-      st.equal(end.value, '<!--foo end qux="quux"-->');
-
-      st.end();
-    });
-  }
+    function handle(start, nodes, end) {
+      st.equal(start.type, 'html')
+      st.equal(start.value, '<!--foo start bar="baz"-->')
+      st.deepEqual(nodes, [])
+      st.equal(end.type, 'html')
+      st.equal(end.value, '<!--foo end qux="quux"-->')
+    }
+  })
 }

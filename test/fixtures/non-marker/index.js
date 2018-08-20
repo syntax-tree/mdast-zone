@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-module.exports = assertion;
+module.exports = assertion
 
 function assertion(t, zone, tree) {
-  zone(tree, 'foo', handle);
+  zone(tree, 'foo', handle)
 
   function handle() {
-    throw new Error('Should not be invoked');
+    throw new Error('Should not be invoked')
   }
 }
