@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "browserify": "^16.0.0",
-    "esmangle": "^1.0.0",
     "is-hidden": "^1.0.1",
     "negate": "^1.0.0",
     "nyc": "^12.0.0",
@@ -35,12 +34,13 @@
     "remark-cli": "^5.0.0",
     "remark-preset-wooorm": "^4.0.0",
     "tape": "^4.0.0",
+    "tinyify": "^2.4.3",
     "xo": "^0.22.0"
   },
   "scripts": {
     "build-md": "remark . -qfo",
-    "build-bundle": "browserify index.js --bare -s mdastZone > mdast-zone.js",
-    "build-mangle": "esmangle mdast-zone.js > mdast-zone.min.js",
+    "build-bundle": "browserify . -s mdastZone > mdast-zone.js",
+    "build-mangle": "browserify . -s mdastZone -p tinyify > mdast-zone.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
     "test-api": "node test/index.js",
