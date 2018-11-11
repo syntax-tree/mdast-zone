@@ -16,7 +16,7 @@ function zone(node, name, callback) {
 
   visit(node, gather)
 
-  /* Gather one dimensional zones. */
+  // Gather one dimensional zones.
   function gather(node, index, parent) {
     var type = test(node)
 
@@ -60,7 +60,7 @@ function zone(node, name, callback) {
     }
   }
 
-  /* Test if `node` matches the bound settings. */
+  // Test if `node` matches the bound settings.
   function test(node) {
     var marker = commentMarker(node)
     var attributes
