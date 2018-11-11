@@ -1,4 +1,4 @@
-# mdast-zone [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov] [![Chat][chat-badge]][chat]
+# mdast-zone [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
 
 [**MDAST**][mdast] utility to treat HTML comments as ranges.
 Useful in [**remark**][remark] plugins.
@@ -106,17 +106,21 @@ repository, organisation, or community you agree to abide by its terms.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/syntax-tree/mdast-zone.svg
+[build-badge]: https://img.shields.io/travis/syntax-tree/mdast-zone.svg
 
-[travis]: https://travis-ci.org/syntax-tree/mdast-zone
+[build]: https://travis-ci.org/syntax-tree/mdast-zone
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-zone.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-zone.svg
 
-[chat-badge]: https://img.shields.io/gitter/room/wooorm/remark.svg
+[coverage]: https://codecov.io/github/syntax-tree/mdast-zone
 
-[codecov]: https://codecov.io/github/syntax-tree/mdast-zone
+[downloads-badge]: https://img.shields.io/npm/dm/mdast-zone.svg
 
-[chat]: https://gitter.im/wooorm/remark
+[downloads]: https://www.npmjs.com/package/mdast-zone
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/remark
 
 [npm]: https://docs.npmjs.com/cli/install
 
