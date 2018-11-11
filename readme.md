@@ -1,6 +1,6 @@
 # mdast-zone [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
 
-[**MDAST**][mdast] utility to treat HTML comments as ranges.
+[**mdast**][mdast] utility to treat HTML comments as ranges.
 Useful in [**remark**][remark] plugins.
 
 ## Installation
