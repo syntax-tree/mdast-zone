@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 after_success: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
@@ -9,7 +9,7 @@ deploy:
   api_key:
     secure: bRNV89yMsYFCJ4LRAOon8eOpC/pMB4cZhO95UCC81LPf1FaOPJ7XxcLMdVewgGtpMPPC+GkJim+GABCyK8z6xcmFdZAJ+GoDNqer0ScXzCc19GhkJeGPNNV7l3b1B+5t9RCnujz3N97gNz7g+BoJafkXzvOhS73pQdwFsPCuWNs=
   file:
-    - "mdast-zone.js"
-    - "mdast-zone.min.js"
+    - 'mdast-zone.js'
+    - 'mdast-zone.min.js'
   on:
     tags: true
