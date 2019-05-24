@@ -39,7 +39,7 @@
     "xo": "^0.23.0"
   },
   "scripts": {
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify . -s mdastZone > mdast-zone.js",
     "build-mangle": "browserify . -s mdastZone -p tinyify > mdast-zone.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
