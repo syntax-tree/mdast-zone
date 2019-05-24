@@ -4,6 +4,9 @@
   "description": "HTML comments as ranges in remark",
   "license": "MIT",
   "keywords": [
+    "unist",
+    "util",
+    "utility",
     "html",
     "comment",
     "comments",
