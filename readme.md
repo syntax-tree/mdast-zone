@@ -1,13 +1,22 @@
-# mdast-zone [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
+# mdast-zone
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
 
 [**mdast**][mdast] utility to treat HTML comments as ranges.
+
 Useful in [**remark**][remark] plugins.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install mdast-zone
 ```
 
@@ -25,7 +34,7 @@ Foo
 
 And our script, `example.js`, looks as follows:
 
-```javascript
+```js
 var vfile = require('to-vfile')
 var remark = require('remark')
 var zone = require('mdast-zone')
@@ -72,7 +81,7 @@ Search `tree` for comment ranges (“zones”).
 
 ###### Parameters
 
-*   `tree` ([`Node`][mdast]) — Node to search for ranges
+*   `tree` ([`Node`][node]) — [Tree][] to search for ranges
 *   `name` (`string`) — Name of ranges to search for
 *   `handler` ([`Function`][handler]) — Function invoked for each found range
 
@@ -83,22 +92,24 @@ and the last `end`, and the content inside.
 
 ###### Parameters
 
-*   `start` ([`Node`][mdast]) — Start of range (an HTML comment node)
-*   `nodes` (`Array.<Node>`) — Nodes between `start` and `end`
-*   `end` ([`Node`][mdast]) — End of range (an HTML comment node)
+*   `start` ([`Node`][node]) — Start of range (an [HTML][] comment node)
+*   `nodes` ([`Array.<Node>`][node]) — Nodes between `start` and `end`
+*   `end` ([`Node`][node]) — End of range (an [HTML][] comment node)
 
 ###### Returns
 
-`Array.<Node>?` — List of nodes to replace `start`, `nodes`, and `end`
+[`Array.<Node>?`][node] — List of nodes to replace `start`, `nodes`, and `end`
 with, optional.
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/mdast`][contributing] for ways to get
+See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -118,9 +129,19 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/mdast-zone
 
+[size-badge]: https://img.shields.io/bundlephobia/minzip/mdast-zone.svg
+
+[size]: https://bundlephobia.com/result?p=mdast-zone
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
 
-[chat]: https://spectrum.chat/unified/remark
+[chat]: https://spectrum.chat/unified/syntax-tree
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -128,12 +149,20 @@ repository, organisation, or community you agree to abide by its terms.
 
 [author]: https://wooorm.com
 
+[contributing]: https://github.com/syntax-tree/.github/blob/master/contributing.md
+
+[support]: https://github.com/syntax-tree/.github/blob/master/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
+
 [mdast]: https://github.com/syntax-tree/mdast
 
-[remark]: https://github.com/wooorm/remark
+[remark]: https://github.com/remarkjs/remark
 
 [handler]: #function-handlerstart-nodes-end
 
-[contributing]: https://github.com/syntax-tree/mdast/blob/master/contributing.md
+[node]: https://github.com/syntax-tree/mdast#nodes
 
-[coc]: https://github.com/syntax-tree/mdast/blob/master/code-of-conduct.md
+[tree]: https://github.com/syntax-tree/unist#tree
+
+[html]: https://github.com/syntax-tree/mdast#html
