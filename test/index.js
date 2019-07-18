@@ -2,8 +2,8 @@
 
 var test = require('tape')
 var remark = require('remark')
-var zone = require('..')
 var fixtures = require('./fixtures')
+var zone = require('..')
 
 test('mdast-zone', function(t) {
   fixtures.forEach(each)
