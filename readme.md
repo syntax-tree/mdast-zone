@@ -101,6 +101,32 @@ and the last `end`, and the content inside.
 [`Array.<Node>?`][node] — List of nodes to replace `start`, `nodes`, and `end`
 with, optional.
 
+## Security
+
+Improper use of `handler` can open you up to a [cross-site scripting (XSS)][xss]
+attack as the value it returns is injected into the syntax tree.
+This can become a problem if the tree is later transformed to [**hast**][hast].
+The following example shows how a script is injected that could run when loaded
+in a browser.
+
+```js
+function handler(start, nodes, end) {
+  return [start, {type: 'html', value: 'alert(1)'}, end]
+}
+```
+
+Yields:
+
+```markdown
+<!--foo start-->
+
+<script>alert(1)</script>
+
+<!--foo end-->
+```
+
+Either do not use user input or use [`hast-util-santize`][sanitize].
+
 ## Contribute
 
 See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
@@ -166,3 +192,9 @@ abide by its terms.
 [tree]: https://github.com/syntax-tree/unist#tree
 
 [html]: https://github.com/syntax-tree/mdast#html
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[hast]: https://github.com/syntax-tree/hast
+
+[sanitize]: https://github.com/syntax-tree/hast-util-sanitize
