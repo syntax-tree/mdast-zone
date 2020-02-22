@@ -17,7 +17,7 @@ function map(basename) {
 
   try {
     output = fs.readFileSync(path.join(root, basename, 'output.md'))
-  } catch (error) {}
+  } catch (_) {}
 
   return {
     name: basename,
