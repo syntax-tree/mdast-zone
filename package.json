@@ -1,10 +1,12 @@
 {
   "name": "mdast-zone",
   "version": "3.0.4",
-  "description": "HTML comments as ranges in remark",
+  "description": "mdast utility to treat HTML comments as ranges or markers",
   "license": "MIT",
   "keywords": [
     "unist",
+    "mdast",
+    "mdast-util",
     "util",
     "utility",
     "html",
@@ -12,8 +14,7 @@
     "comments",
     "zone",
     "range",
-    "marker",
-    "mdast"
+    "marker"
   ],
   "repository": "syntax-tree/mdast-zone",
   "bugs": "https://github.com/syntax-tree/mdast-zone/issues",
