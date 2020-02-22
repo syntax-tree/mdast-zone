@@ -1,6 +1,6 @@
 {
   "name": "mdast-zone",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "mdast utility to treat HTML comments as ranges or markers",
   "license": "MIT",
   "keywords": [
