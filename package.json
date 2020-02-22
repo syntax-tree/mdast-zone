@@ -30,8 +30,8 @@
     "index.js"
   ],
   "dependencies": {
-    "mdast-comment-marker": "^1.0.1",
-    "unist-util-visit": "^1.0.0"
+    "mdast-comment-marker": "^1.0.0",
+    "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^16.0.0",
