@@ -127,6 +127,11 @@ Yields:
 
 Either do not use user input or use [`hast-util-santize`][sanitize].
 
+## Related
+
+*   [`mdast-util-heading-range`](https://github.com/syntax-tree/mdast-util-heading-range)
+    — use headings as ranges instead of comments
+
 ## Contribute
 
 See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
