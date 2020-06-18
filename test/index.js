@@ -5,15 +5,13 @@ var remark = require('remark')
 var fixtures = require('./fixtures')
 var zone = require('..')
 
-test('mdast-zone', function(t) {
+test('mdast-zone', function (t) {
   fixtures.forEach(each)
 
   t.end()
 
   function each(fixture) {
-    remark()
-      .use(plugin)
-      .process(fixture.input, done)
+    remark().use(plugin).process(fixture.input, done)
 
     function done(err, file) {
       t.ifError(err, 'should not fail (' + fixture.name + ')')

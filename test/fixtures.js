@@ -7,10 +7,7 @@ var hidden = require('is-hidden')
 
 var root = path.join(__dirname, 'fixtures')
 
-module.exports = fs
-  .readdirSync(root)
-  .filter(negate(hidden))
-  .map(map)
+module.exports = fs.readdirSync(root).filter(negate(hidden)).map(map)
 
 function map(basename) {
   var output = null
