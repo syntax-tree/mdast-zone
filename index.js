@@ -8,71 +8,56 @@ module.exports = zone
 var splice = [].splice
 
 function zone(node, name, callback) {
-  var nodes = []
-  var start = null
-  var scope = null
-  var level = 0
-  var position
+  var level
+  var marker
+  var scope
 
   visit(node, gather)
 
   // Gather one dimensional zones.
   function gather(node, index, parent) {
-    var type = test(node)
+    var info = commentMarker(node)
+    var match =
+      info && info.name === name && info.attributes.match(/(start|end)\b/)
+    var type = match && match[0]
+    var start
+    var result
 
-    if (scope && parent === scope) {
-      if (type === 'start') {
-        level++
+    if (type) {
+      if (!scope && type === 'start') {
+        level = 0
+        marker = node
+        scope = parent
       }
 
-      if (type === 'end') {
-        level--
-      }
-
-      if (type === 'end' && level === 0) {
-        nodes = callback(start, nodes, node, {
-          start: index - nodes.length - 1,
-          end: index,
-          parent: scope
-        })
-
-        if (nodes) {
-          splice.apply(
-            scope.children,
-            [position, index - position + 1].concat(nodes)
-          )
+      if (scope && parent === scope) {
+        if (type === 'start') {
+          level++
+        } else {
+          level--
         }
 
-        start = null
-        scope = null
-        position = null
-        nodes = []
-      } else {
-        nodes.push(node)
+        if (type === 'end' && !level) {
+          start = scope.children.indexOf(marker)
+
+          result = callback(
+            marker,
+            scope.children.slice(start + 1, index),
+            node,
+            {start: start, end: index, parent: parent}
+          )
+
+          if (result) {
+            splice.apply(
+              scope.children,
+              [start, index - start + 1].concat(result)
+            )
+          }
+
+          marker = undefined
+          scope = undefined
+        }
       }
     }
-
-    if (!scope && type === 'start') {
-      level = 1
-      position = index
-      start = node
-      scope = parent
-    }
-  }
-
-  // Test if `node` matches the bound settings.
-  function test(node) {
-    var marker = commentMarker(node)
-    var attributes
-    var head
-
-    if (!marker || marker.name !== name) {
-      return null
-    }
-
-    attributes = marker.attributes
-    head = attributes.match(/(start|end)\b/)
-
-    return head ? head[0] : null
   }
 }
