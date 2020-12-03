@@ -148,9 +148,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/syntax-tree/mdast-zone.svg
+[build-badge]: https://github.com/syntax-tree/mdast-zone/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/syntax-tree/mdast-zone
+[build]: https://github.com/syntax-tree/mdast-zone/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-zone.svg
 
