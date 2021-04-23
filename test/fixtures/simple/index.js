@@ -1,8 +1,4 @@
-'use strict'
-
-module.exports = assertion
-
-function assertion(t, zone, tree) {
+export default function assertion(t, zone, tree) {
   t.test('range', function (st) {
     st.plan(5)
 

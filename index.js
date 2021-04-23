@@ -1,13 +1,7 @@
-'use strict'
+import {commentMarker} from 'mdast-comment-marker'
+import {visit} from 'unist-util-visit'
 
-var commentMarker = require('mdast-comment-marker')
-var visit = require('unist-util-visit')
-
-module.exports = zone
-
-var splice = [].splice
-
-function zone(node, name, callback) {
+export function zone(node, name, callback) {
   var level
   var marker
   var scope
@@ -44,14 +38,11 @@ function zone(node, name, callback) {
             marker,
             scope.children.slice(start + 1, index),
             node,
-            {start: start, end: index, parent: parent}
+            {start, end: index, parent}
           )
 
           if (result) {
-            splice.apply(
-              scope.children,
-              [start, index - start + 1].concat(result)
-            )
+            scope.children.splice(start, index - start + 1, ...result)
           }
 
           marker = undefined
