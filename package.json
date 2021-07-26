@@ -73,9 +73,7 @@
   "xo": {
     "prettier": true,
     "rules": {
-      "capitalized-comments": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off"
+      "capitalized-comments": "off"
     }
   },
   "remarkConfig": {

@@ -25,11 +25,11 @@ import {visit} from 'unist-util-visit'
  */
 export function zone(node, name, callback) {
   /** @type {number} */
-  var level
+  let level
   /** @type {Node} */
-  var marker
+  let marker
   /** @type {Parent} */
-  var scope
+  let scope
 
   visit(node, gather)
 
@@ -38,14 +38,10 @@ export function zone(node, name, callback) {
    * @type {Visitor}
    */
   function gather(node, index, parent) {
-    var info = commentMarker(node)
-    var match =
+    const info = commentMarker(node)
+    const match =
       info && info.name === name && info.attributes.match(/(start|end)\b/)
-    var type = match && match[0]
-    /** @type {number} */
-    var start
-    /** @type {Array.<Node>} */
-    var result
+    const type = match && match[0]
 
     if (type) {
       if (!scope && type === 'start') {
@@ -62,9 +58,9 @@ export function zone(node, name, callback) {
         }
 
         if (type === 'end' && !level) {
-          start = scope.children.indexOf(marker)
+          const start = scope.children.indexOf(marker)
 
-          result = callback(
+          const result = callback(
             marker,
             scope.children.slice(start + 1, index),
             node,

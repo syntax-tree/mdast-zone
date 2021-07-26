@@ -11,16 +11,16 @@ import remark from 'remark'
 import {isHidden} from 'is-hidden'
 import {zone} from '../index.js'
 
-test('mdast-zone', async function (t) {
-  var root = path.join('test', 'fixtures')
-  var fixtures = fs.readdirSync(root)
-  var index = -1
+test('mdast-zone', async (t) => {
+  const root = path.join('test', 'fixtures')
+  const fixtures = fs.readdirSync(root)
+  let index = -1
   /** @type {string} */
-  var output
+  let output
   /** @type {string} */
-  var name
+  let name
   /** @type {(t: Test, zone: Zone, node: Node) => void} */
-  var mod
+  let mod
 
   while (++index < fixtures.length) {
     name = fixtures[index]

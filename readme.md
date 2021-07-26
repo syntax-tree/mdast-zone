@@ -38,14 +38,16 @@ Foo
 And our script, `example.js`, looks as follows:
 
 ```js
-import toVFile from 'to-vfile'
-import remark from 'remark'
+import {readSync} from 'to-vfile'
+import {remark} from 'remark'
 import {zone} from 'mdast-zone'
+
+const file = readSync('example.md')
 
 remark()
   .use(plugin)
-  .process(toVFile.readSync('example.md'), function(err, file) {
-    if (err) throw err
+  .process(file)
+  .then((file) => {
     console.log(String(file))
   })
 

@@ -4,9 +4,9 @@
  * @param {import('unist').Node} tree
  */
 export default function assertion(t, zone, tree) {
-  var count = 0
+  let count = 0
 
-  t.test('nodes', function (st) {
+  t.test('nodes', (st) => {
     st.plan(6)
 
     zone(tree, 'foo', handle)
