@@ -1,6 +1,6 @@
 /**
  * @typedef {import('tape').Test} Test
- * @typedef {import('unist').Node} Node
+ * @typedef {import('mdast').Root} Root
  * @typedef {import('../index.js').zone} Zone
  */
 
@@ -28,7 +28,7 @@ test('mdast-zone', async (t) => {
     } catch {}
 
     /* eslint-disable no-await-in-loop */
-    /** @type {(t: Test, zone: Zone, node: Node) => void} */
+    /** @type {(t: Test, zone: Zone, node: Root) => void} */
     const mod =
       // @ts-ignore hush.
       (await import(new URL('fixtures/' + name + '/index.js', import.meta.url)))
@@ -37,7 +37,7 @@ test('mdast-zone', async (t) => {
 
     remark()
       .use(() => (tree) => {
-        mod(t, zone, tree)
+        mod(t, zone, /** @type {Root} */ (tree))
       })
       .process(
         fs.readFileSync(path.join(root, name, 'input.md')),

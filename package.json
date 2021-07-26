@@ -35,8 +35,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@types/mdast": "^3.0.3",
-    "@types/unist": "^2.0.3",
+    "@types/mdast": "^3.0.0",
+    "@types/unist": "^2.0.0",
     "mdast-comment-marker": "^2.0.0",
     "unist-util-visit": "^3.0.0"
   },

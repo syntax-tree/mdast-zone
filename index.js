@@ -1,7 +1,6 @@
 /**
- * @typedef {import('unist').Node} Node
- * @typedef {import('unist').Parent} Parent
- * @typedef {import('unist-util-visit').Visitor<Node>} Visitor
+ * @typedef {import('mdast').Root|import('mdast').Content} Node
+ * @typedef {Extract<Node, import('mdast').Parent>} Parent
  *
  * @typedef ZoneInfo
  * @property {number} start
@@ -32,50 +31,52 @@ export function zone(node, name, callback) {
   /** @type {Parent|undefined} */
   let scope
 
-  visit(node, gather)
+  visit(
+    node,
+    /**
+     * Gather one dimensional zones.
+     */
+    (node, index, parent) => {
+      const info = commentMarker(node)
+      const match =
+        info && info.name === name && info.attributes.match(/(start|end)\b/)
+      const type = match && match[0]
 
-  /**
-   * Gather one dimensional zones.
-   * @type {Visitor}
-   */
-  function gather(node, index, parent) {
-    const info = commentMarker(node)
-    const match =
-      info && info.name === name && info.attributes.match(/(start|end)\b/)
-    const type = match && match[0]
-
-    if (parent && index !== null && type) {
-      if (!scope && type === 'start') {
-        level = 0
-        marker = node
-        scope = parent
-      }
-
-      if (typeof level === 'number' && marker && scope && parent === scope) {
-        if (type === 'start') {
-          level++
-        } else {
-          level--
+      if (parent && index !== null && type) {
+        if (!scope && type === 'start') {
+          level = 0
+          marker = node
+          scope = /** @type {Parent} */ (parent)
         }
 
-        if (type === 'end' && !level) {
-          const start = scope.children.indexOf(marker)
-
-          const result = callback(
-            marker,
-            scope.children.slice(start + 1, index),
-            node,
-            {start, end: index, parent}
-          )
-
-          if (result) {
-            scope.children.splice(start, index - start + 1, ...result)
+        if (typeof level === 'number' && marker && scope && parent === scope) {
+          if (type === 'start') {
+            level++
+          } else {
+            level--
           }
 
-          marker = undefined
-          scope = undefined
+          if (type === 'end' && !level) {
+            // @ts-expect-error: Assume `scope` is a valid parent of `node`.
+            const start = scope.children.indexOf(marker)
+
+            const result = callback(
+              marker,
+              scope.children.slice(start + 1, index),
+              node,
+              {start, end: index, parent: scope}
+            )
+
+            if (result) {
+              // @ts-expect-error: Assume the correct children are passed.
+              scope.children.splice(start, index - start + 1, ...result)
+            }
+
+            marker = undefined
+            scope = undefined
+          }
         }
       }
     }
-  }
+  )
 }

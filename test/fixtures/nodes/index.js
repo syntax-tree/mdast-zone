@@ -1,7 +1,9 @@
+import assert from 'assert'
+
 /**
  * @param {import('tape').Test} t
  * @param {import('../../../index.js').zone} zone
- * @param {import('unist').Node} tree
+ * @param {import('mdast').Root} tree
  */
 export default function assertion(t, zone, tree) {
   let count = 0
@@ -16,12 +18,12 @@ export default function assertion(t, zone, tree) {
       st.equal(nodes.length, 1)
       const head = nodes[0]
       st.equal(head.type, 'paragraph')
-      // @ts-expect-error: too vague.
+      assert(head.type === 'paragraph')
       st.equal(head.children.length, 1)
-      // @ts-expect-error: too vague.
-      st.equal(head.children[0].type, 'text')
-      // @ts-expect-error: too vague.
-      st.equal(head.children[0].value, 'Foo.')
+      const headHead = head.children[0]
+      st.equal(headHead.type, 'text')
+      assert(headHead.type === 'text')
+      st.equal(headHead.value, 'Foo.')
       st.equal(++count, 1)
     }
   })

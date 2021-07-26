@@ -1,7 +1,7 @@
 /**
  * @param {import('tape').Test} t
  * @param {import('../../../index.js').zone} zone
- * @param {import('unist').Node} tree
+ * @param {import('mdast').Root} tree
  */
 export default function assertion(t, zone, tree) {
   let count = 0
