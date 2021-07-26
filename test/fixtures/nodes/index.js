@@ -14,11 +14,14 @@ export default function assertion(t, zone, tree) {
     /** @type {import('../../../index.js').Handler} */
     function handle(_, nodes) {
       st.equal(nodes.length, 1)
-      st.equal(nodes[0].type, 'paragraph')
-      // @ts-ignore hush
-      st.equal(nodes[0].children.length, 1)
-      st.equal(nodes[0].children[0].type, 'text')
-      st.equal(nodes[0].children[0].value, 'Foo.')
+      const head = nodes[0]
+      st.equal(head.type, 'paragraph')
+      // @ts-expect-error: too vague.
+      st.equal(head.children.length, 1)
+      // @ts-expect-error: too vague.
+      st.equal(head.children[0].type, 'text')
+      // @ts-expect-error: too vague.
+      st.equal(head.children[0].value, 'Foo.')
       st.equal(++count, 1)
     }
   })

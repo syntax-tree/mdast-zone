@@ -12,9 +12,11 @@ export default function assertion(t, zone, tree) {
     /** @type {import('../../../index.js').Handler} */
     function handle(start, nodes, end) {
       st.equal(start.type, 'html')
+      // @ts-expect-error: too vague.
       st.equal(start.value, '<!--foo start bar="baz"-->')
       st.deepEqual(nodes, [])
       st.equal(end.type, 'html')
+      // @ts-expect-error: too vague.
       st.equal(end.value, '<!--foo end qux="quux"-->')
     }
   })
