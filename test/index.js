@@ -15,16 +15,11 @@ test('mdast-zone', async (t) => {
   const root = path.join('test', 'fixtures')
   const fixtures = fs.readdirSync(root)
   let index = -1
-  /** @type {string} */
-  let output
-  /** @type {string} */
-  let name
-  /** @type {(t: Test, zone: Zone, node: Node) => void} */
-  let mod
 
   while (++index < fixtures.length) {
-    name = fixtures[index]
-    output = null
+    const name = fixtures[index]
+    /** @type {string|undefined} */
+    let output
 
     if (isHidden(name)) continue
 
@@ -33,7 +28,8 @@ test('mdast-zone', async (t) => {
     } catch {}
 
     /* eslint-disable no-await-in-loop */
-    mod =
+    /** @type {(t: Test, zone: Zone, node: Node) => void} */
+    const mod =
       // @ts-ignore hush.
       (await import(new URL('fixtures/' + name + '/index.js', import.meta.url)))
         .default // type-coverage:ignore-line

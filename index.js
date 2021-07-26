@@ -9,10 +9,11 @@
  * @property {Parent|null} parent
  *
  * @callback Handler
- * @param {Node|undefined} start
+ * @param {Node} start
  * @param {Array.<Node>} between
- * @param {Node|undefined} end
+ * @param {Node} end
  * @param {ZoneInfo} info
+ * @returns {Array.<Node>|null|undefined|void}
  */
 
 import {commentMarker} from 'mdast-comment-marker'
@@ -24,11 +25,11 @@ import {visit} from 'unist-util-visit'
  * @param {Handler} callback
  */
 export function zone(node, name, callback) {
-  /** @type {number} */
+  /** @type {number|undefined} */
   let level
-  /** @type {Node} */
+  /** @type {Node|undefined} */
   let marker
-  /** @type {Parent} */
+  /** @type {Parent|undefined} */
   let scope
 
   visit(node, gather)
@@ -43,14 +44,14 @@ export function zone(node, name, callback) {
       info && info.name === name && info.attributes.match(/(start|end)\b/)
     const type = match && match[0]
 
-    if (type) {
+    if (parent && index !== null && type) {
       if (!scope && type === 'start') {
         level = 0
         marker = node
         scope = parent
       }
 
-      if (scope && parent === scope) {
+      if (typeof level === 'number' && marker && scope && parent === scope) {
         if (type === 'start') {
           level++
         } else {
