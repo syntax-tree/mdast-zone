@@ -7,7 +7,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import test from 'tape'
-import remark from 'remark'
+import {remark} from 'remark'
 import {isHidden} from 'is-hidden'
 import {zone} from '../index.js'
 
@@ -28,11 +28,10 @@ test('mdast-zone', async (t) => {
     } catch {}
 
     /* eslint-disable no-await-in-loop */
-    /** @type {(t: Test, zone: Zone, node: Root) => void} */
-    const mod =
-      // @ts-ignore hush.
-      (await import(new URL('fixtures/' + name + '/index.js', import.meta.url)))
-        .default // type-coverage:ignore-line
+    /** @type {{default: (t: Test, zone: Zone, node: Root) => void}} */
+    const {default: mod} =
+      // @ts-expect-error hush.
+      await import(new URL('fixtures/' + name + '/index.js', import.meta.url)) // type-coverage:ignore-line
     /* eslint-enable no-await-in-loop */
 
     remark()
