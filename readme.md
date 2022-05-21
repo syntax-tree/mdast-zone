@@ -8,19 +8,61 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**mdast**][mdast] utility to treat HTML comments as ranges.
+[mdast][] utility to find two comments and replace the content in them.
 
-Useful in [**remark**][remark] plugins.
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`zone(tree, name, handler)`](#zonetree-name-handler)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a utility that lets you find certain comments, then takes the
+content between them, and calls a given handler with the result, so that you can
+change or replace things.
+
+## When should I use this?
+
+This utility is typically useful when you have certain sections that can be
+generated.
+Comments are a hidden part of markdown, so they can be used as processing
+instructions.
+You can use those comments to define what content to change or replace.
+
+A similar package, [`mdast-util-heading-range`][mdast-util-heading-range], does
+the same but uses a heading to mark the start and end of sections.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-zone
+```
+
+In Deno with [`esm.sh`][esmsh]:
+
+```js
+import {zone} from 'https://esm.sh/mdast-zone@5'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {zone} from 'https://esm.sh/mdast-zone@5?bundle'
+</script>
 ```
 
 ## Use
@@ -35,40 +77,32 @@ Foo
 <!--foo end-->
 ```
 
-And our script, `example.js`, looks as follows:
+…and a module `example.js`:
 
 ```js
-import {readSync} from 'to-vfile'
+import {read} from 'to-vfile'
 import {remark} from 'remark'
 import {zone} from 'mdast-zone'
 
-const file = readSync('example.md')
+const file = await remark()
+  .use(myPluginThatReplacesFoo)
+  .process(await read('example.md'))
 
-remark()
-  .use(plugin)
-  .process(file)
-  .then((file) => {
-    console.log(String(file))
-  })
+console.log(String(file))
 
-function plugin() {
-  return transform
-
-  function transform(tree) {
-    zone(tree, 'foo', mutate)
-  }
-
-  function mutate(start, nodes, end) {
-    return [
+/** @type {import('unified').Plugin<[], import('mdast').Root>} */
+function myPluginThatReplacesFoo() {
+  return (tree) => {
+    zone(tree, 'foo', (start, nodes, end) => [
       start,
-      {type: 'paragraph', children: [{type: 'text', value: 'Bar'}]},
+      {type: 'paragraph', children: [{type: 'text', value: 'Bar.'}]},
       end
-    ]
+    ])
   }
 }
 ```
 
-Now, running `node example` yields:
+…now running `node example.js` yields:
 
 ```markdown
 <!--foo start-->
@@ -80,46 +114,70 @@ Bar
 
 ## API
 
-This package exports the following identifiers: `zone`.
+This package exports the identifier `zone`.
 There is no default export.
 
 ### `zone(tree, name, handler)`
 
-Search `tree` for comment ranges (“zones”).
+Search `tree` ([`Node`][node]) for comments marked `name` (`string`) and
+transform a section with `handler` ([`Function`][handler]).
 
-###### Parameters
+#### `function handler(start, nodes, end, info)`
 
-*   `tree` ([`Node`][node]) — [Tree][] to search for ranges
-*   `name` (`string`) — Name of ranges to search for
-*   `handler` ([`Function`][handler]) — Function invoked for each found range
+Callback called when a range is found.
 
-#### `function handler(start, nodes, end)`
+##### Parameters
 
-Invoked with the two markers that determine a range: the first `start`
-and the last `end`, and the content inside.
+Arguments.
 
-###### Parameters
+###### `start`
 
-*   `start` ([`Node`][node]) — Start of range (an [HTML][] comment node)
-*   `nodes` ([`Array<Node>`][node]) — Nodes between `start` and `end`
-*   `end` ([`Node`][node]) — End of range (an [HTML][] comment node)
+Start of range ([`Node`][node]), an [HTML][] (or MDX) comment node.
+
+###### `nodes`
+
+Nodes between `start` and `end` ([`Array<Node>`][node]).
+
+###### `end`
+
+End of range ([`Node`][node]), an [HTML][] (or MDX) comment node.
+
+###### `info`
+
+Extra info (`Object`):
+
+*   `parent` ([`Node`][node]) — parent of the range
+*   `start` (`number`) — index of `start` in `parent`
+*   `end` (`number`) — index of `end` in `parent`
 
 ###### Returns
 
-[`Array<Node>?`][node] — List of nodes to replace `start`, `nodes`, and `end`
-with, optional.
+Optional list of nodes to replace `start`, `nodes`, and `end` with
+([`Array<Node>?`][node]).
+
+## Types
+
+This package is fully typed with [TypeScript][].
+This package exports the types `Handler` and `ZoneInfo`.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Security
 
 Improper use of `handler` can open you up to a [cross-site scripting (XSS)][xss]
 attack as the value it returns is injected into the syntax tree.
-This can become a problem if the tree is later transformed to [**hast**][hast].
+This can become a problem if the tree is later transformed to **[hast][]**.
 The following example shows how a script is injected that could run when loaded
 in a browser.
 
 ```js
 function handler(start, nodes, end) {
-  return [start, {type: 'html', value: 'alert(1)'}, end]
+  return [start, {type: 'html', value: '<script>alert(1)</script>'}, end]
 }
 ```
 
@@ -133,17 +191,17 @@ Yields:
 <!--foo end-->
 ```
 
-Either do not use user input or use [`hast-util-santize`][sanitize].
+Either do not use user input or use [`hast-util-santize`][hast-util-sanitize].
 
 ## Related
 
 *   [`mdast-util-heading-range`](https://github.com/syntax-tree/mdast-util-heading-range)
-    — use headings as ranges instead of comments
+    — similar but uses headings to mark sections
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
+ways to get started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
@@ -184,30 +242,36 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+[health]: https://github.com/syntax-tree/.github
 
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
+[contributing]: https://github.com/syntax-tree/.github/blob/main/contributing.md
 
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[support]: https://github.com/syntax-tree/.github/blob/main/support.md
 
-[mdast]: https://github.com/syntax-tree/mdast
-
-[remark]: https://github.com/remarkjs/remark
-
-[handler]: #function-handlerstart-nodes-end
-
-[node]: https://github.com/syntax-tree/mdast#nodes
-
-[tree]: https://github.com/syntax-tree/unist#tree
-
-[html]: https://github.com/syntax-tree/mdast#html
+[coc]: https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md
 
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 
+[mdast]: https://github.com/syntax-tree/mdast
+
+[node]: https://github.com/syntax-tree/mdast#nodes
+
+[html]: https://github.com/syntax-tree/mdast#html
+
+[mdast-util-heading-range]: https://github.com/syntax-tree/mdast-util-heading-range
+
 [hast]: https://github.com/syntax-tree/hast
 
-[sanitize]: https://github.com/syntax-tree/hast-util-sanitize
+[hast-util-sanitize]: https://github.com/syntax-tree/hast-util-sanitize
+
+[handler]: #function-handlerstart-nodes-end-info

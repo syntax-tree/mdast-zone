@@ -3,16 +3,26 @@
  * @typedef {Extract<Node, import('mdast').Parent>} Parent
  *
  * @typedef ZoneInfo
+ *   Extra info.
+ * @property {Parent} parent
+ *   Parent of the range.
  * @property {number} start
+ *   Index of `start` in `parent`
  * @property {number} end
- * @property {Parent|null} parent
+ *   Index of `end` in `parent`
  *
  * @callback Handler
+ *   Callback called when a range is found.
  * @param {Node} start
+ *   Start of range.
  * @param {Array<Node>} between
+ *   Nodes between `start` and `end`.
  * @param {Node} end
+ *   End of range.
  * @param {ZoneInfo} info
+ *   Extra info.
  * @returns {Array<Node>|null|undefined|void}
+ *   Nodes to replace.
  */
 
 import {commentMarker} from 'mdast-comment-marker'
@@ -20,8 +30,11 @@ import {visit} from 'unist-util-visit'
 
 /**
  * @param {Node} node
+ *   Tree to search.
  * @param {string} name
+ *   Comment name to look for.
  * @param {Handler} callback
+ *   Callback called when a range is found.
  */
 export function zone(node, name, callback) {
   /** @type {number|undefined} */
