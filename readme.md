@@ -107,7 +107,7 @@ function myPluginThatReplacesFoo() {
 ```markdown
 <!--foo start-->
 
-Bar
+Bar.
 
 <!--foo end-->
 ```
