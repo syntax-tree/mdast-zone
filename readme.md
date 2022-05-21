@@ -101,12 +101,12 @@ and the last `end`, and the content inside.
 ###### Parameters
 
 *   `start` ([`Node`][node]) — Start of range (an [HTML][] comment node)
-*   `nodes` ([`Array.<Node>`][node]) — Nodes between `start` and `end`
+*   `nodes` ([`Array<Node>`][node]) — Nodes between `start` and `end`
 *   `end` ([`Node`][node]) — End of range (an [HTML][] comment node)
 
 ###### Returns
 
-[`Array.<Node>?`][node] — List of nodes to replace `start`, `nodes`, and `end`
+[`Array<Node>?`][node] — List of nodes to replace `start`, `nodes`, and `end`
 with, optional.
 
 ## Security

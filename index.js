@@ -9,10 +9,10 @@
  *
  * @callback Handler
  * @param {Node} start
- * @param {Array.<Node>} between
+ * @param {Array<Node>} between
  * @param {Node} end
  * @param {ZoneInfo} info
- * @returns {Array.<Node>|null|undefined|void}
+ * @returns {Array<Node>|null|undefined|void}
  */
 
 import {commentMarker} from 'mdast-comment-marker'
