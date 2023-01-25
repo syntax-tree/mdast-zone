@@ -19,7 +19,7 @@
 *   [API](#api)
     *   [`zone(tree, name, handler)`](#zonetree-name-handler)
     *   [`Handler`](#handler)
-    *   [`ZoneInfo`](#zoneinfo)
+    *   [`Info`](#info)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
 *   [Security](#security)
@@ -149,7 +149,7 @@ Callback called when a section is found (TypeScript type).
     — nodes between `start` and `end`
 *   `end` ([`Node`][node])
     — end of section
-*   `info` ([`ZoneInfo`][api-zoneinfo])
+*   `info` ([`Info`][api-info])
     — extra info
 
 ###### Returns
@@ -160,7 +160,7 @@ If nothing is returned, nothing will be changed.
 If an array of nodes (can include `null` and `undefined`) is returned, the
 original section will be replaced by those nodes.
 
-### `ZoneInfo`
+### `Info`
 
 Extra info (TypeScript type).
 
@@ -177,7 +177,7 @@ Extra info (TypeScript type).
 
 This package is fully typed with [TypeScript][].
 It exports the additional types [`Handler`][api-handler] and
-[`ZoneInfo`][api-zoneinfo].
+[`Info`][api-info].
 
 ## Compatibility
 
@@ -295,4 +295,4 @@ abide by its terms.
 
 [api-handler]: #handler
 
-[api-zoneinfo]: #zoneinfo
+[api-info]: #info
