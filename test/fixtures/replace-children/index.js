@@ -1,13 +1,14 @@
 /**
- * @param {import('tape').Test} _
- * @param {import('../../../index.js').zone} zone
- * @param {import('mdast').Root} tree
+ * @typedef {import('mdast').Root} Root
  */
-export default function assertion(_, zone, tree) {
-  zone(tree, 'foo', handle)
 
-  /** @type {import('../../../index.js').Handler} */
-  function handle(start, _, end) {
+import {zone} from '../../../index.js'
+
+/**
+ * @param {Root} tree
+ */
+export default function assertion(tree) {
+  zone(tree, 'foo', function (start, _, end) {
     return [
       start,
       /** @type {import('mdast').Heading} */ ({
@@ -17,5 +18,5 @@ export default function assertion(_, zone, tree) {
       }),
       end
     ]
-  }
+  })
 }

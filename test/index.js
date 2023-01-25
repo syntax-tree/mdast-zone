@@ -1,54 +1,40 @@
 /**
- * @typedef {import('tape').Test} Test
  * @typedef {import('mdast').Root} Root
- * @typedef {import('../index.js').zone} Zone
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
-import test from 'tape'
-import {remark} from 'remark'
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
+import test from 'node:test'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
 import {isHidden} from 'is-hidden'
-import {zone} from '../index.js'
 
-test('mdast-zone', async (t) => {
-  const root = path.join('test', 'fixtures')
-  const fixtures = fs.readdirSync(root)
+test('zone', async () => {
+  const root = new URL('fixtures/', import.meta.url)
+  const folders = await fs.readdir(root)
   let index = -1
 
-  while (++index < fixtures.length) {
-    const name = fixtures[index]
-    /** @type {string|undefined} */
-    let output
+  while (++index < folders.length) {
+    const folder = folders[index]
 
-    if (isHidden(name)) continue
+    if (isHidden(folder)) continue
+
+    /** @type {string | undefined} */
+    let expected
 
     try {
-      output = String(fs.readFileSync(path.join(root, name, 'output.md')))
+      expected = String(await fs.readFile(new URL(folder + '/output.md', root)))
     } catch {}
 
-    /* eslint-disable no-await-in-loop */
-    /** @type {{default: (t: Test, zone: Zone, node: Root) => void}} */
-    const {default: mod} =
-      // @ts-expect-error hush.
-      await import(new URL('fixtures/' + name + '/index.js', import.meta.url)) // type-coverage:ignore-line
-    /* eslint-enable no-await-in-loop */
+    /** @type {{default: (tree: Root) => void}} */
+    const mod = await import(new URL(folder + '/index.js', root).href)
+    const check = mod.default
+    const tree = fromMarkdown(
+      await fs.readFile(new URL(folder + '/input.md', root))
+    )
 
-    remark()
-      .use(() => (tree) => {
-        mod(t, zone, /** @type {Root} */ (tree))
-      })
-      .process(
-        fs.readFileSync(path.join(root, name, 'input.md')),
-        (error, file) => {
-          t.ifError(error, 'should not fail (' + name + ')')
+    check(tree)
 
-          if (output) {
-            t.equal(String(file), String(output), 'should stringify ' + name)
-          }
-        }
-      )
+    assert.equal(toMarkdown(tree), expected, folder)
   }
-
-  t.end()
 })
