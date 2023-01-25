@@ -8,8 +8,15 @@ import test from 'node:test'
 import {fromMarkdown} from 'mdast-util-from-markdown'
 import {toMarkdown} from 'mdast-util-to-markdown'
 import {isHidden} from 'is-hidden'
+import * as mod from '../index.js'
 
 test('zone', async () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['zone'],
+    'should expose the public api'
+  )
+
   const root = new URL('fixtures/', import.meta.url)
   const folders = await fs.readdir(root)
   let index = -1
