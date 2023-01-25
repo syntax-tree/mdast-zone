@@ -73,6 +73,7 @@
   "xo": {
     "prettier": true,
     "rules": {
+      "max-depth": "off",
       "capitalized-comments": "off"
     }
   },
