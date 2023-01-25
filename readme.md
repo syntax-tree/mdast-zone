@@ -18,6 +18,8 @@
 *   [Use](#use)
 *   [API](#api)
     *   [`zone(tree, name, handler)`](#zonetree-name-handler)
+    *   [`Handler`](#handler)
+    *   [`ZoneInfo`](#zoneinfo)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
 *   [Security](#security)
@@ -45,7 +47,7 @@ the same but uses a heading to mark the start and end of sections.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-zone
@@ -114,57 +116,74 @@ Bar.
 
 ## API
 
-This package exports the identifier `zone`.
+This package exports the identifier [`zone`][api-zone].
 There is no default export.
 
 ### `zone(tree, name, handler)`
 
-Search `tree` ([`Node`][node]) for comments marked `name` (`string`) and
-transform a section with `handler` ([`Function`][handler]).
+Search `tree` for a start and end comments matching `name` and change their
+“section” with `handler`.
 
-#### `function handler(start, nodes, end, info)`
+###### Parameters
 
-Callback called when a range is found.
-
-##### Parameters
-
-Arguments.
-
-###### `start`
-
-Start of range ([`Node`][node]), an [HTML][] (or MDX) comment node.
-
-###### `nodes`
-
-Nodes between `start` and `end` ([`Array<Node>`][node]).
-
-###### `end`
-
-End of range ([`Node`][node]), an [HTML][] (or MDX) comment node.
-
-###### `info`
-
-Extra info (`Object`):
-
-*   `parent` ([`Node`][node]) — parent of the range
-*   `start` (`number`) — index of `start` in `parent`
-*   `end` (`number`) — index of `end` in `parent`
+*   `tree` ([`Node`][node])
+    — tree to change
+*   `name` (`string`)
+    — comment name to look for
+*   `handler` ([`Handler`][api-handler])
+    — handle a section
 
 ###### Returns
 
-Optional list of nodes to replace `start`, `nodes`, and `end` with
-([`Array<Node>?`][node]).
+Nothing (`void`).
+
+### `Handler`
+
+Callback called when a section is found (TypeScript type).
+
+###### Parameters
+
+*   `start` ([`Node`][node])
+    — start of section
+*   `nodes` ([`Array<Node>`][node])
+    — nodes between `start` and `end`
+*   `end` ([`Node`][node])
+    — end of section
+*   `info` ([`ZoneInfo`][api-zoneinfo])
+    — extra info
+
+###### Returns
+
+Results (`Array<Node | null | undefined>`, optional).
+
+If nothing is returned, nothing will be changed.
+If an array of nodes (can include `null` and `undefined`) is returned, the
+original section will be replaced by those nodes.
+
+### `ZoneInfo`
+
+Extra info (TypeScript type).
+
+###### Fields
+
+*   `parent` ([`Node`][node])
+    — parent of the section
+*   `start` (`number`)
+    — index of `start` in `parent`
+*   `end` (`number` or `null`)
+    — index of `end` in `parent`
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-This package exports the types `Handler` and `ZoneInfo`.
+It exports the additional types [`Handler`][api-handler] and
+[`ZoneInfo`][api-zoneinfo].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Security
@@ -266,12 +285,14 @@ abide by its terms.
 
 [node]: https://github.com/syntax-tree/mdast#nodes
 
-[html]: https://github.com/syntax-tree/mdast#html
-
 [mdast-util-heading-range]: https://github.com/syntax-tree/mdast-util-heading-range
 
 [hast]: https://github.com/syntax-tree/hast
 
 [hast-util-sanitize]: https://github.com/syntax-tree/hast-util-sanitize
 
-[handler]: #function-handlerstart-nodes-end-info
+[api-zone]: #zonetree-name-handler
+
+[api-handler]: #handler
+
+[api-zoneinfo]: #zoneinfo
