@@ -36,12 +36,16 @@ test('zone', async () => {
     /** @type {{default: (tree: Root) => void}} */
     const mod = await import(new URL(folder + '/index.js', root).href)
     const check = mod.default
-    const tree = fromMarkdown(
-      await fs.readFile(new URL(folder + '/input.md', root))
+    // To do: remove cast when `from-markdown` is released.
+    const tree = /** @type {Root} */ (
+      fromMarkdown(await fs.readFile(new URL(folder + '/input.md', root)))
     )
 
     check(tree)
 
-    assert.equal(toMarkdown(tree), expected, folder)
+    // @ts-expect-error: remove cast when `to-markdown` is released.
+    const result = toMarkdown(tree)
+
+    assert.equal(result, expected, folder)
   }
 })
