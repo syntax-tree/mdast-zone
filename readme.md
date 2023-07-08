@@ -47,7 +47,7 @@ the same but uses a heading to mark the start and end of sections.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+ and 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install mdast-zone
@@ -82,9 +82,9 @@ Foo
 …and a module `example.js`:
 
 ```js
-import {read} from 'to-vfile'
-import {remark} from 'remark'
 import {zone} from 'mdast-zone'
+import {remark} from 'remark'
+import {read} from 'to-vfile'
 
 const file = await remark()
   .use(myPluginThatReplacesFoo)
@@ -137,7 +137,7 @@ Search `tree` for a start and end comments matching `name` and change their
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `Handler`
 
@@ -183,10 +183,13 @@ It exports the additional types [`Handler`][api-handler] and
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `mdast-zone@^5`,
+compatible with Node.js 12.
 
 ## Security
 
@@ -247,9 +250,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/mdast-zone
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/mdast-zone.svg
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-zone
 
-[size]: https://bundlephobia.com/result?p=mdast-zone
+[size]: https://bundlejs.com/?q=mdast-zone
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
