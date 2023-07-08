@@ -56,14 +56,14 @@ npm install mdast-zone
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {zone} from 'https://esm.sh/mdast-zone@5'
+import {zone} from 'https://esm.sh/mdast-zone@6'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {zone} from 'https://esm.sh/mdast-zone@5?bundle'
+  import {zone} from 'https://esm.sh/mdast-zone@6?bundle'
 </script>
 ```
 
