@@ -11,7 +11,7 @@ import {toMarkdown} from 'mdast-util-to-markdown'
 
 test('zone', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('../index.js')).sort(), ['zone'])
+    assert.deepEqual(Object.keys(await import('mdast-zone')).sort(), ['zone'])
   })
 
   const root = new URL('fixtures/', import.meta.url)

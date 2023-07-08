@@ -2,7 +2,7 @@
  * @typedef {import('mdast').Root} Root
  */
 
-import {zone} from '../../../index.js'
+import {zone} from 'mdast-zone'
 
 /**
  * @param {Root} tree

@@ -3,7 +3,7 @@
  */
 
 import assert from 'node:assert/strict'
-import {zone} from '../../../index.js'
+import {zone} from 'mdast-zone'
 
 /**
  * @param {Root} tree
