@@ -8,7 +8,6 @@ import {zone} from '../../../index.js'
  * @param {Root} tree
  */
 export default function assertion(tree) {
-  console.log('mism')
   zone(tree, 'foo', handle)
 
   function handle() {
