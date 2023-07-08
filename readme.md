@@ -94,12 +94,14 @@ console.log(String(file))
 
 /** @type {import('unified').Plugin<[], import('mdast').Root>} */
 function myPluginThatReplacesFoo() {
-  return (tree) => {
-    zone(tree, 'foo', (start, nodes, end) => [
-      start,
-      {type: 'paragraph', children: [{type: 'text', value: 'Bar.'}]},
-      end
-    ])
+  return function (tree) {
+    zone(tree, 'foo', function (start, nodes, end) {
+      return [
+        start,
+        {type: 'paragraph', children: [{type: 'text', value: 'Bar.'}]},
+        end
+      ]
+    })
   }
 }
 ```
@@ -170,7 +172,7 @@ Extra info (TypeScript type).
     — parent of the section
 *   `start` (`number`)
     — index of `start` in `parent`
-*   `end` (`number` or `null`)
+*   `end` (`number`)
     — index of `end` in `parent`
 
 ## Types

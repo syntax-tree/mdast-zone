@@ -1,6 +1,5 @@
 /**
  * @typedef {import('mdast').Root} Root
- * @typedef {import('../../../index.js').Handler} Handler
  */
 
 import assert from 'node:assert/strict'
