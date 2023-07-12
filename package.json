@@ -37,7 +37,7 @@
   "dependencies": {
     "@types/mdast": "^4.0.0",
     "@types/unist": "^3.0.0",
-    "mdast-comment-marker": "^2.0.0",
+    "mdast-comment-marker": "^3.0.0",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
