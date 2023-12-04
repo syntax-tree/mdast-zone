@@ -12,20 +12,20 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`zone(tree, name, handler)`](#zonetree-name-handler)
-    *   [`Handler`](#handler)
-    *   [`Info`](#info)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`zone(tree, name, handler)`](#zonetree-name-handler)
+  * [`Handler`](#handler)
+  * [`Info`](#info)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -128,12 +128,12 @@ Search `tree` for a start and end comments matching `name` and change their
 
 ###### Parameters
 
-*   `tree` ([`Node`][node])
-    — tree to change
-*   `name` (`string`)
-    — comment name to look for
-*   `handler` ([`Handler`][api-handler])
-    — handle a section
+* `tree` ([`Node`][node])
+  — tree to change
+* `name` (`string`)
+  — comment name to look for
+* `handler` ([`Handler`][api-handler])
+  — handle a section
 
 ###### Returns
 
@@ -145,14 +145,14 @@ Callback called when a section is found (TypeScript type).
 
 ###### Parameters
 
-*   `start` ([`Node`][node])
-    — start of section
-*   `nodes` ([`Array<Node>`][node])
-    — nodes between `start` and `end`
-*   `end` ([`Node`][node])
-    — end of section
-*   `info` ([`Info`][api-info])
-    — extra info
+* `start` ([`Node`][node])
+  — start of section
+* `nodes` ([`Array<Node>`][node])
+  — nodes between `start` and `end`
+* `end` ([`Node`][node])
+  — end of section
+* `info` ([`Info`][api-info])
+  — extra info
 
 ###### Returns
 
@@ -168,12 +168,12 @@ Extra info (TypeScript type).
 
 ###### Fields
 
-*   `parent` ([`Node`][node])
-    — parent of the section
-*   `start` (`number`)
-    — index of `start` in `parent`
-*   `end` (`number`)
-    — index of `end` in `parent`
+* `parent` ([`Node`][node])
+  — parent of the section
+* `start` (`number`)
+  — index of `start` in `parent`
+* `end` (`number`)
+  — index of `end` in `parent`
 
 ## Types
 
@@ -219,8 +219,8 @@ Either do not use user input or use [`hast-util-santize`][hast-util-sanitize].
 
 ## Related
 
-*   [`mdast-util-heading-range`](https://github.com/syntax-tree/mdast-util-heading-range)
-    — similar but uses headings to mark sections
+* [`mdast-util-heading-range`](https://github.com/syntax-tree/mdast-util-heading-range)
+  — similar but uses headings to mark sections
 
 ## Contribute
 
