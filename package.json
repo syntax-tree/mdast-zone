@@ -49,7 +49,8 @@
     "prettier": "^3.0.0",
     "remark-cli": "^12.0.0",
     "remark-gfm": "^4.0.0",
-    "remark-preset-wooorm": "^9.0.0",
+    "remark-lint-list-item-indent": "^4.0.0",
+    "remark-preset-wooorm": "^10.0.0",
     "type-coverage": "^2.0.0",
     "typescript": "^5.0.0",
     "xo": "^0.56.0"
