@@ -82,6 +82,11 @@ Foo
 …and a module `example.js`:
 
 ```js
+/**
+ * @import {Plugin} from 'unified'
+ * @import {Root} from 'mdast'
+ */
+
 import {zone} from 'mdast-zone'
 import {remark} from 'remark'
 import {read} from 'to-vfile'
@@ -92,7 +97,7 @@ const file = await remark()
 
 console.log(String(file))
 
-/** @type {import('unified').Plugin<[], import('mdast').Root>} */
+/** @type {Plugin<[], Root>} */
 function myPluginThatReplacesFoo() {
   return function (tree) {
     zone(tree, 'foo', function (start, nodes, end) {
