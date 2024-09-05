@@ -34,8 +34,8 @@ test('zone', async function (t) {
       } catch {}
 
       /** @type {{default: (tree: Root) => undefined}} */
-      const mod = await import(new URL(folder + '/index.js', root).href)
-      const check = mod.default
+      const example = await import(new URL(folder + '/index.js', root).href)
+      const check = example.default
       const tree = fromMarkdown(
         await fs.readFile(new URL(folder + '/input.md', root))
       )
